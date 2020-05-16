@@ -23,10 +23,11 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.pnlLogin = New System.Windows.Forms.Panel()
+        Me.btnLoginAñadir = New System.Windows.Forms.Button()
         Me.btnEntrar = New System.Windows.Forms.Button()
         Me.btnLimpiar = New System.Windows.Forms.Button()
-        Me.textContrasena = New System.Windows.Forms.TextBox()
-        Me.textUsuario = New System.Windows.Forms.TextBox()
+        Me.txtContrasena = New System.Windows.Forms.TextBox()
+        Me.txtUsuario = New System.Windows.Forms.TextBox()
         Me.lblContrasena = New System.Windows.Forms.Label()
         Me.lblUsuario = New System.Windows.Forms.Label()
         Me.lblLogin = New System.Windows.Forms.Label()
@@ -40,6 +41,7 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblRegUsuario = New System.Windows.Forms.Label()
         Me.btnRegCrear = New System.Windows.Forms.Button()
+        Me.ArticulosTableAdapter1 = New GoxoDenda.GoxoDendaDataSetTableAdapters.ARTICULOSTableAdapter()
         Me.pnlLogin.SuspendLayout()
         Me.pnlRegistro.SuspendLayout()
         Me.SuspendLayout()
@@ -47,17 +49,28 @@ Partial Class Form1
         'pnlLogin
         '
         Me.pnlLogin.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.pnlLogin.Controls.Add(Me.btnLoginAñadir)
         Me.pnlLogin.Controls.Add(Me.btnEntrar)
         Me.pnlLogin.Controls.Add(Me.btnLimpiar)
-        Me.pnlLogin.Controls.Add(Me.textContrasena)
-        Me.pnlLogin.Controls.Add(Me.textUsuario)
+        Me.pnlLogin.Controls.Add(Me.txtContrasena)
+        Me.pnlLogin.Controls.Add(Me.txtUsuario)
         Me.pnlLogin.Controls.Add(Me.lblContrasena)
         Me.pnlLogin.Controls.Add(Me.lblUsuario)
         Me.pnlLogin.Controls.Add(Me.lblLogin)
-        Me.pnlLogin.Location = New System.Drawing.Point(0, -2)
+        Me.pnlLogin.Location = New System.Drawing.Point(0, 0)
         Me.pnlLogin.Name = "pnlLogin"
         Me.pnlLogin.Size = New System.Drawing.Size(827, 454)
         Me.pnlLogin.TabIndex = 0
+        '
+        'btnLoginAñadir
+        '
+        Me.btnLoginAñadir.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnLoginAñadir.Location = New System.Drawing.Point(358, 332)
+        Me.btnLoginAñadir.Name = "btnLoginAñadir"
+        Me.btnLoginAñadir.Size = New System.Drawing.Size(101, 34)
+        Me.btnLoginAñadir.TabIndex = 7
+        Me.btnLoginAñadir.Text = "Añadir"
+        Me.btnLoginAñadir.UseVisualStyleBackColor = True
         '
         'btnEntrar
         '
@@ -79,22 +92,22 @@ Partial Class Form1
         Me.btnLimpiar.Text = "Limpiar"
         Me.btnLimpiar.UseVisualStyleBackColor = True
         '
-        'textContrasena
+        'txtContrasena
         '
-        Me.textContrasena.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textContrasena.Location = New System.Drawing.Point(405, 222)
-        Me.textContrasena.Name = "textContrasena"
-        Me.textContrasena.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.textContrasena.Size = New System.Drawing.Size(171, 27)
-        Me.textContrasena.TabIndex = 4
+        Me.txtContrasena.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtContrasena.Location = New System.Drawing.Point(405, 222)
+        Me.txtContrasena.Name = "txtContrasena"
+        Me.txtContrasena.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtContrasena.Size = New System.Drawing.Size(171, 27)
+        Me.txtContrasena.TabIndex = 4
         '
-        'textUsuario
+        'txtUsuario
         '
-        Me.textUsuario.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textUsuario.Location = New System.Drawing.Point(405, 160)
-        Me.textUsuario.Name = "textUsuario"
-        Me.textUsuario.Size = New System.Drawing.Size(171, 27)
-        Me.textUsuario.TabIndex = 3
+        Me.txtUsuario.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtUsuario.Location = New System.Drawing.Point(405, 160)
+        Me.txtUsuario.Name = "txtUsuario"
+        Me.txtUsuario.Size = New System.Drawing.Size(171, 27)
+        Me.txtUsuario.TabIndex = 3
         '
         'lblContrasena
         '
@@ -141,7 +154,7 @@ Partial Class Form1
         Me.pnlRegistro.Controls.Add(Me.Label1)
         Me.pnlRegistro.Controls.Add(Me.lblRegUsuario)
         Me.pnlRegistro.Controls.Add(Me.btnRegCrear)
-        Me.pnlRegistro.Location = New System.Drawing.Point(0, -2)
+        Me.pnlRegistro.Location = New System.Drawing.Point(0, 0)
         Me.pnlRegistro.Name = "pnlRegistro"
         Me.pnlRegistro.Size = New System.Drawing.Size(827, 454)
         Me.pnlRegistro.TabIndex = 7
@@ -151,7 +164,6 @@ Partial Class Form1
         Me.txtRegDni.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRegDni.Location = New System.Drawing.Point(377, 239)
         Me.txtRegDni.Name = "txtRegDni"
-        Me.txtRegDni.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtRegDni.Size = New System.Drawing.Size(209, 27)
         Me.txtRegDni.TabIndex = 12
         '
@@ -239,6 +251,10 @@ Partial Class Form1
         Me.btnRegCrear.Text = "Crear"
         Me.btnRegCrear.UseVisualStyleBackColor = False
         '
+        'ArticulosTableAdapter1
+        '
+        Me.ArticulosTableAdapter1.ClearBeforeFill = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -261,10 +277,10 @@ Partial Class Form1
     Friend WithEvents lblLogin As Label
     Friend WithEvents lblContrasena As Label
     Friend WithEvents lblUsuario As Label
-    Friend WithEvents textUsuario As TextBox
+    Friend WithEvents txtUsuario As TextBox
     Friend WithEvents btnEntrar As Button
     Friend WithEvents btnLimpiar As Button
-    Friend WithEvents textContrasena As TextBox
+    Friend WithEvents txtContrasena As TextBox
     Friend WithEvents pnlRegistro As Panel
     Friend WithEvents lblRegContrasena As Label
     Friend WithEvents Label1 As Label
@@ -275,4 +291,6 @@ Partial Class Form1
     Friend WithEvents txtRegDni As TextBox
     Friend WithEvents txtRegContrasena As TextBox
     Friend WithEvents txtRegUsuario As TextBox
+    Friend WithEvents ArticulosTableAdapter1 As GoxoDendaDataSetTableAdapters.ARTICULOSTableAdapter
+    Friend WithEvents btnLoginAñadir As Button
 End Class
