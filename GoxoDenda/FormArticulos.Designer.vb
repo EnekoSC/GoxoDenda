@@ -25,7 +25,7 @@ Partial Class FormArticulos
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormArticulos))
         Me.pnlPrincipal = New System.Windows.Forms.Panel()
         Me.btnFinalizar = New System.Windows.Forms.Button()
-        Me.btnPrincipalAtras = New System.Windows.Forms.Button()
+        Me.btnPrincipalMenu = New System.Windows.Forms.Button()
         Me.btnVarios = New System.Windows.Forms.Button()
         Me.btnPatatas = New System.Windows.Forms.Button()
         Me.btnPan = New System.Windows.Forms.Button()
@@ -43,7 +43,7 @@ Partial Class FormArticulos
         '
         Me.pnlPrincipal.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.pnlPrincipal.Controls.Add(Me.btnFinalizar)
-        Me.pnlPrincipal.Controls.Add(Me.btnPrincipalAtras)
+        Me.pnlPrincipal.Controls.Add(Me.btnPrincipalMenu)
         Me.pnlPrincipal.Controls.Add(Me.btnVarios)
         Me.pnlPrincipal.Controls.Add(Me.btnPatatas)
         Me.pnlPrincipal.Controls.Add(Me.btnPan)
@@ -71,15 +71,15 @@ Partial Class FormArticulos
         Me.btnFinalizar.TabIndex = 11
         Me.btnFinalizar.UseVisualStyleBackColor = False
         '
-        'btnPrincipalAtras
+        'btnPrincipalMenu
         '
-        Me.btnPrincipalAtras.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPrincipalAtras.Location = New System.Drawing.Point(12, 413)
-        Me.btnPrincipalAtras.Name = "btnPrincipalAtras"
-        Me.btnPrincipalAtras.Size = New System.Drawing.Size(114, 29)
-        Me.btnPrincipalAtras.TabIndex = 10
-        Me.btnPrincipalAtras.Text = "Atrás"
-        Me.btnPrincipalAtras.UseVisualStyleBackColor = True
+        Me.btnPrincipalMenu.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnPrincipalMenu.Location = New System.Drawing.Point(12, 413)
+        Me.btnPrincipalMenu.Name = "btnPrincipalMenu"
+        Me.btnPrincipalMenu.Size = New System.Drawing.Size(114, 29)
+        Me.btnPrincipalMenu.TabIndex = 10
+        Me.btnPrincipalMenu.Text = "Menú"
+        Me.btnPrincipalMenu.UseVisualStyleBackColor = True
         '
         'btnVarios
         '
@@ -123,9 +123,9 @@ Partial Class FormArticulos
         '
         'pnlTPV
         '
-        Me.pnlTPV.Location = New System.Drawing.Point(125, 58)
+        Me.pnlTPV.Location = New System.Drawing.Point(150, 58)
         Me.pnlTPV.Name = "pnlTPV"
-        Me.pnlTPV.Size = New System.Drawing.Size(689, 330)
+        Me.pnlTPV.Size = New System.Drawing.Size(648, 330)
         Me.pnlTPV.TabIndex = 5
         '
         'btnBolleria
@@ -150,20 +150,22 @@ Partial Class FormArticulos
         '
         'txtTotal
         '
+        Me.txtTotal.BackColor = System.Drawing.Color.DimGray
+        Me.txtTotal.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtTotal.Enabled = False
         Me.txtTotal.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTotal.Location = New System.Drawing.Point(676, 413)
+        Me.txtTotal.Location = New System.Drawing.Point(712, 413)
         Me.txtTotal.Name = "txtTotal"
-        Me.txtTotal.Size = New System.Drawing.Size(138, 31)
+        Me.txtTotal.Size = New System.Drawing.Size(102, 24)
         Me.txtTotal.TabIndex = 2
-        Me.txtTotal.Text = "0,00€"
+        Me.txtTotal.Text = "0"
         Me.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblTotal
         '
         Me.lblTotal.AutoSize = True
         Me.lblTotal.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotal.Location = New System.Drawing.Point(594, 420)
+        Me.lblTotal.Location = New System.Drawing.Point(629, 413)
         Me.lblTotal.Name = "lblTotal"
         Me.lblTotal.Size = New System.Drawing.Size(63, 22)
         Me.lblTotal.TabIndex = 1
@@ -196,7 +198,7 @@ Partial Class FormArticulos
 
     Friend WithEvents pnlPrincipal As Panel
     Friend WithEvents btnFinalizar As Button
-    Friend WithEvents btnPrincipalAtras As Button
+    Friend WithEvents btnPrincipalMenu As Button
     Friend WithEvents btnVarios As Button
     Friend WithEvents btnPatatas As Button
     Friend WithEvents btnPan As Button

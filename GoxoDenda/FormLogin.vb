@@ -1,7 +1,5 @@
 ﻿
-Public Class Form1
-
-    Dim ruta = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\myFolder\myAccessFile.accdb;Persist Security Info=False;"
+Public Class FormLogin
 
 
 #Region "Funcion Limpiar"

@@ -45,10 +45,8 @@ Module ControladorUsuarios
         Dim conn = Connection()
         conn.Open()
         Dim oledbCommand = New OleDbCommand(query, conn)
-
-        Dim cmd = conn.CreateCommand()
-        cmd.Parameters.AddWithValue("@nombre", nombre)
-        cmd.Parameters.AddWithValue("@contrasena", contrasena)
+        oledbCommand.Parameters.AddWithValue("@nombre", nombre)
+        oledbCommand.Parameters.AddWithValue("@contrasena", contrasena)
         Dim tabla = New DataTable
         Dim executeReader = oledbCommand.ExecuteReader()
         tabla.Load(executeReader)
@@ -56,21 +54,6 @@ Module ControladorUsuarios
         Return tabla.Rows.Count
     End Function
 
-    'IGNORAR ESTO
-    Public Sub CreateReader(ByVal connectionString As String,
-    ByVal query As String)
 
-        Using connection As New OleDbConnection(connectionString)
-            Dim command As New OleDbCommand(query, connection)
-
-            connection.Open()
-
-            Dim reader As OleDbDataReader = command.ExecuteReader()
-            While reader.Read()
-                Console.WriteLine(reader(0).ToString())
-            End While
-            reader.Close()
-        End Using
-    End Sub
 
 End Module
