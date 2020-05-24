@@ -83,43 +83,47 @@ Partial Class FormArticulos
         '
         'btnVarios
         '
+        Me.btnVarios.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnVarios.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnVarios.Location = New System.Drawing.Point(4, 233)
         Me.btnVarios.Name = "btnVarios"
         Me.btnVarios.Size = New System.Drawing.Size(114, 29)
         Me.btnVarios.TabIndex = 9
         Me.btnVarios.Text = "VARIOS"
-        Me.btnVarios.UseVisualStyleBackColor = True
+        Me.btnVarios.UseVisualStyleBackColor = False
         '
         'btnPatatas
         '
+        Me.btnPatatas.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.btnPatatas.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnPatatas.Location = New System.Drawing.Point(4, 198)
         Me.btnPatatas.Name = "btnPatatas"
         Me.btnPatatas.Size = New System.Drawing.Size(114, 29)
         Me.btnPatatas.TabIndex = 8
         Me.btnPatatas.Text = "PATATAS"
-        Me.btnPatatas.UseVisualStyleBackColor = True
+        Me.btnPatatas.UseVisualStyleBackColor = False
         '
         'btnPan
         '
+        Me.btnPan.BackColor = System.Drawing.Color.Lime
         Me.btnPan.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnPan.Location = New System.Drawing.Point(5, 162)
         Me.btnPan.Name = "btnPan"
         Me.btnPan.Size = New System.Drawing.Size(114, 29)
         Me.btnPan.TabIndex = 7
         Me.btnPan.Text = "PAN"
-        Me.btnPan.UseVisualStyleBackColor = True
+        Me.btnPan.UseVisualStyleBackColor = False
         '
         'btnChuches
         '
+        Me.btnChuches.BackColor = System.Drawing.Color.Aqua
         Me.btnChuches.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnChuches.Location = New System.Drawing.Point(4, 127)
         Me.btnChuches.Name = "btnChuches"
         Me.btnChuches.Size = New System.Drawing.Size(114, 29)
         Me.btnChuches.TabIndex = 6
         Me.btnChuches.Text = "CHUCHES"
-        Me.btnChuches.UseVisualStyleBackColor = True
+        Me.btnChuches.UseVisualStyleBackColor = False
         '
         'pnlTPV
         '
@@ -130,23 +134,25 @@ Partial Class FormArticulos
         '
         'btnBolleria
         '
+        Me.btnBolleria.BackColor = System.Drawing.Color.Yellow
         Me.btnBolleria.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnBolleria.Location = New System.Drawing.Point(5, 92)
         Me.btnBolleria.Name = "btnBolleria"
         Me.btnBolleria.Size = New System.Drawing.Size(114, 29)
         Me.btnBolleria.TabIndex = 4
         Me.btnBolleria.Text = "BOLLERÍA"
-        Me.btnBolleria.UseVisualStyleBackColor = True
+        Me.btnBolleria.UseVisualStyleBackColor = False
         '
         'btnBebidas
         '
+        Me.btnBebidas.BackColor = System.Drawing.Color.Red
         Me.btnBebidas.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnBebidas.Location = New System.Drawing.Point(5, 57)
         Me.btnBebidas.Name = "btnBebidas"
         Me.btnBebidas.Size = New System.Drawing.Size(114, 29)
         Me.btnBebidas.TabIndex = 3
         Me.btnBebidas.Text = "BEBIDAS"
-        Me.btnBebidas.UseVisualStyleBackColor = True
+        Me.btnBebidas.UseVisualStyleBackColor = False
         '
         'txtTotal
         '
