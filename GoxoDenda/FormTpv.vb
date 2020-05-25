@@ -1,12 +1,13 @@
 ﻿Imports System.Data.OleDb
 Imports GoxoDenda.DAO
 
-Public Class FormArticulos
+Public Class FormTpv
 
     Dim articulos As DataTable
     Dim idArticulo As String
     Dim nombreArticulo As String
     Dim precioArticulo As Double
+    Dim totalCompra As Double
 
     Function getArticulos(nombre As String, id As String)
 
@@ -59,7 +60,6 @@ Public Class FormArticulos
                 precioArticulo = executeReader.GetDouble(1)
             Loop
         End If
-        MsgBox($"{precioArticulo}")
         'Dim reader As OleDbDataReader = oledbCommand.ExecuteReader()
         tablaArticulos.Load(executeReader)
         conn.Close()
@@ -122,9 +122,10 @@ Public Class FormArticulos
 
         '       sender.Text + vbCrLf +
         Dim id = sender.tag
-        MsgBox("Articulo seleccionado ID: " + $"{id}")
         Dim datosArticulo = buscarArticuloPorId(id)
         Dim precio = datosArticulo
+        totalCompra = totalCompra + precioArticulo
+        txtTotal.Text = $"{totalCompra}" + "€"
         'SetForm(sender.tag)
     End Sub
 
@@ -137,6 +138,10 @@ Public Class FormArticulos
         For Each row In articulos.Rows
             pnlTPV.Controls.Add(CreateButton(row("NOMBRE"), row("IDARTICULO"), row("Precio")))
         Next
+
+    End Sub
+
+    Private Sub insertarLinea(idArticulo As String, idPedido As Integer)
 
     End Sub
 

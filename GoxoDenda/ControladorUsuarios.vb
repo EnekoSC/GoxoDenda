@@ -3,29 +3,12 @@
 Module ControladorUsuarios
     Private row As String
     Private connectionString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\..\..\GoxoDenda.accdb;Persist Security Info=False"
-
-    Private Function Connection() As OleDbConnection
-        Return New OleDbConnection(connectionString)
-    End Function
-    Public Function getConnection() As OleDbConnection
-        Dim connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\..\..\GoxoDenda.accdb;Persist Security Info=False"
-        getConnection = New OleDbConnection(connString)
-    End Function
-
-    Private Function DataAdapter() As OleDbDataAdapter 'SqlDataAdapter
-        'Return New SqlClient.SqlDataAdapter(DirectCast(cmd, SqlCommand))
-        Return New OleDbDataAdapter()
-    End Function
-
-    Private Function Command(queryString As String, connection As Object) As OleDbCommand
-        Return New OleDbCommand(queryString, connection)
-    End Function
-
+    Public permiso As Integer
     Sub insertTrabajador(nombre As String, contrasena As String, dni As String)
 
-        Dim ventaTotal As Integer = 0
-        Dim id = Guid.NewGuid()
-        Dim conn = Connection()
+        nombre = nombre.ToLower
+        Dim ventaTotal As Double = 0
+        Dim conn = DAO.Connection()
         conn.Open()
         Dim cmd = conn.CreateCommand()
         cmd.CommandText = "INSERT INTO TRABAJADORES (NOMBRE, CONTRASEÑA, DNI, VENTATOTAL) 
@@ -40,20 +23,38 @@ Module ControladorUsuarios
 
     Function login(nombre As String, contrasena As String)
 
-        Dim query = "SELECT NOMBRE, CONTRASEÑA FROM TRABAJADORES WHERE NOMBRE = @nombre AND CONTRASEÑA = @contrasena"
-        Dim id = Guid.NewGuid()
-        Dim conn = Connection()
+        Dim query = "SELECT * FROM TRABAJADORES WHERE Nombre = @nombre AND Contraseña = @contrasena"
+        Dim conn = DAO.Connection()
         conn.Open()
         Dim oledbCommand = New OleDbCommand(query, conn)
         oledbCommand.Parameters.AddWithValue("@nombre", nombre)
         oledbCommand.Parameters.AddWithValue("@contrasena", contrasena)
         Dim tabla = New DataTable
         Dim executeReader = oledbCommand.ExecuteReader()
+
+        While executeReader.Read()
+            permiso = executeReader.GetInt32(5)
+            MsgBox($"{permiso}")
+        End While
         tabla.Load(executeReader)
+
         conn.Close()
-        Return tabla.Rows.Count
+        Return tabla
     End Function
 
+    Sub modificarTrabajador(id As Integer, nombre As String, contraseña As String, dni As String)
+        Dim query = "UPDATE TRABAJADORES SET NOMBRE = @nombre, CONTRASEÑA = @contraseña, DNI = @dni WHERE IDTRABAJADOR = @id"
+        Dim conn = DAO.Connection()
+        conn.Open()
+        Dim oledbCommand = New OleDbCommand(query, conn)
+        oledbCommand.Parameters.AddWithValue("@nombre", nombre)
+        oledbCommand.Parameters.AddWithValue("@contraseña", contraseña)
+        oledbCommand.Parameters.AddWithValue("@dni", dni)
+        oledbCommand.Parameters.AddWithValue("@id", id)
 
+        Dim executeReader = oledbCommand.ExecuteNonQuery()
+        conn.Close()
+
+    End Sub
 
 End Module

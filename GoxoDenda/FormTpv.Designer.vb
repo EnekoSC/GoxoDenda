@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FormArticulos
+Partial Class FormTpv
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -22,7 +22,7 @@ Partial Class FormArticulos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormArticulos))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormTpv))
         Me.pnlPrincipal = New System.Windows.Forms.Panel()
         Me.btnFinalizar = New System.Windows.Forms.Button()
         Me.btnPrincipalMenu = New System.Windows.Forms.Button()
@@ -145,7 +145,7 @@ Partial Class FormArticulos
         '
         'btnBebidas
         '
-        Me.btnBebidas.BackColor = System.Drawing.Color.Red
+        Me.btnBebidas.BackColor = System.Drawing.Color.OrangeRed
         Me.btnBebidas.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnBebidas.Location = New System.Drawing.Point(5, 57)
         Me.btnBebidas.Name = "btnBebidas"
@@ -158,13 +158,13 @@ Partial Class FormArticulos
         '
         Me.txtTotal.BackColor = System.Drawing.Color.DimGray
         Me.txtTotal.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtTotal.Enabled = False
         Me.txtTotal.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTotal.Location = New System.Drawing.Point(712, 413)
         Me.txtTotal.Name = "txtTotal"
+        Me.txtTotal.ReadOnly = True
         Me.txtTotal.Size = New System.Drawing.Size(102, 24)
         Me.txtTotal.TabIndex = 2
-        Me.txtTotal.Text = "0"
+        Me.txtTotal.Text = "0,00€"
         Me.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblTotal

@@ -19,16 +19,21 @@ Public Class FormLogin
     End Sub
 
     Private Sub btnEntrar_Click(sender As Object, e As EventArgs) Handles btnEntrar.Click
-        'NO SÉ COMO COGER DATOS DE LA TABLA Y COMPARAR CON LAS VARIABLES QUE INTRODUCE EL USUARIO
 
-        Dim acceso As Integer
+        Dim acceso As DataTable
 
         acceso = login(txtUsuario.Text, txtContrasena.Text)
-
-        If acceso = 1 Then
-            Me.Visible = False
-            FormArticulos.Visible = True
+        MsgBox($"{acceso.Rows.Count}")
+        If acceso.Rows.Count = 1 Then
+            If permiso = 1 Then
+                Me.Visible = False
+                FormMenu.Visible = True
+            Else
+                Me.Visible = False
+                FormTpv.Visible = True
+            End If
         Else
+
             MsgBox("Usuario o contraseña incorrectos")
         End If
 
