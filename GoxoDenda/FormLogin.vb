@@ -7,11 +7,6 @@ Public Class FormLogin
         txtUsuario.Text = ""
         txtContrasena.Text = ""
     End Sub
-    Sub clearRegistro()
-        txtRegUsuario.Text = ""
-        txtRegContrasena.Text = ""
-        txtRegDni.Text = ""
-    End Sub
 #End Region
 
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
@@ -23,9 +18,9 @@ Public Class FormLogin
         Dim acceso As DataTable
 
         acceso = login(txtUsuario.Text, txtContrasena.Text)
-        MsgBox($"{acceso.Rows.Count}")
+
         If acceso.Rows.Count = 1 Then
-            If permiso = 1 Then
+            If ControladorUsuarios.permiso = 1 Then
                 Me.Visible = False
                 FormMenu.Visible = True
             Else
@@ -37,15 +32,6 @@ Public Class FormLogin
             MsgBox("Usuario o contraseña incorrectos")
         End If
 
-    End Sub
-
-    Private Sub btnLoginAñadir_Click(sender As Object, e As EventArgs) Handles btnLoginAñadir.Click
-        pnlLogin.Visible = False
-        pnlRegistro.Visible = True
-    End Sub
-
-    Private Sub btnRegLimpiar_Click(sender As Object, e As EventArgs) Handles btnRegLimpiar.Click
-        clearRegistro()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs)

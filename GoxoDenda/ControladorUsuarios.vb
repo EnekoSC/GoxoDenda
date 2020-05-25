@@ -4,6 +4,7 @@ Module ControladorUsuarios
     Private row As String
     Private connectionString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\..\..\GoxoDenda.accdb;Persist Security Info=False"
     Public permiso As Integer
+    Public idTrabajador As Integer
     Sub insertTrabajador(nombre As String, contrasena As String, dni As String)
 
         nombre = nombre.ToLower
@@ -23,7 +24,7 @@ Module ControladorUsuarios
 
     Function login(nombre As String, contrasena As String)
 
-        Dim query = "SELECT * FROM TRABAJADORES WHERE Nombre = @nombre AND Contraseña = @contrasena"
+        Dim query = "SELECT * FROM TRABAJADORES WHERE Nombre = @nombre AND Contrasena = @contrasena"
         Dim conn = DAO.Connection()
         conn.Open()
         Dim oledbCommand = New OleDbCommand(query, conn)
@@ -32,11 +33,11 @@ Module ControladorUsuarios
         Dim tabla = New DataTable
         Dim executeReader = oledbCommand.ExecuteReader()
 
-        While executeReader.Read()
-            permiso = executeReader.GetInt32(5)
-            MsgBox($"{permiso}")
-        End While
-        tabla.Load(executeReader)
+        If executeReader.HasRows Then
+            tabla.Load(executeReader)
+            idTrabajador = tabla.Rows(0).Item(0)
+            permiso = tabla.Rows(0).Item(5)
+        End If
 
         conn.Close()
         Return tabla
@@ -56,5 +57,6 @@ Module ControladorUsuarios
         conn.Close()
 
     End Sub
+
 
 End Module
