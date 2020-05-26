@@ -5,7 +5,6 @@ Namespace DAO
 
     Public Module DB
 
-        Private row As String
         Private connectionString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\..\..\..\GoxoDenda.accdb;Persist Security Info=False"
 
         Public Function Connection() As OleDbConnection

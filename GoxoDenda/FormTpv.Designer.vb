@@ -46,11 +46,11 @@ Partial Class FormTpv
         Me.btnPatatas = New System.Windows.Forms.Button()
         Me.btnPan = New System.Windows.Forms.Button()
         Me.btnChuches = New System.Windows.Forms.Button()
-        Me.pnlTPV = New System.Windows.Forms.Panel()
         Me.btnBolleria = New System.Windows.Forms.Button()
         Me.btnBebidas = New System.Windows.Forms.Button()
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.lblTitulo = New System.Windows.Forms.Label()
+        Me.pnlTpv = New System.Windows.Forms.FlowLayoutPanel()
         Me.pnlPrincipal.SuspendLayout()
         Me.pnlCantidad.SuspendLayout()
         Me.SuspendLayout()
@@ -58,6 +58,7 @@ Partial Class FormTpv
         'pnlPrincipal
         '
         Me.pnlPrincipal.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.pnlPrincipal.Controls.Add(Me.pnlTpv)
         Me.pnlPrincipal.Controls.Add(Me.lblCantidadProd)
         Me.pnlPrincipal.Controls.Add(Me.pnlCantidad)
         Me.pnlPrincipal.Controls.Add(Me.lblTamano)
@@ -68,7 +69,6 @@ Partial Class FormTpv
         Me.pnlPrincipal.Controls.Add(Me.btnPatatas)
         Me.pnlPrincipal.Controls.Add(Me.btnPan)
         Me.pnlPrincipal.Controls.Add(Me.btnChuches)
-        Me.pnlPrincipal.Controls.Add(Me.pnlTPV)
         Me.pnlPrincipal.Controls.Add(Me.btnBolleria)
         Me.pnlPrincipal.Controls.Add(Me.btnBebidas)
         Me.pnlPrincipal.Controls.Add(Me.lblTotal)
@@ -318,13 +318,6 @@ Partial Class FormTpv
         Me.btnChuches.Text = "CHUCHES"
         Me.btnChuches.UseVisualStyleBackColor = False
         '
-        'pnlTPV
-        '
-        Me.pnlTPV.Location = New System.Drawing.Point(150, 58)
-        Me.pnlTPV.Name = "pnlTPV"
-        Me.pnlTPV.Size = New System.Drawing.Size(414, 330)
-        Me.pnlTPV.TabIndex = 5
-        '
         'btnBolleria
         '
         Me.btnBolleria.BackColor = System.Drawing.Color.Yellow
@@ -368,6 +361,13 @@ Partial Class FormTpv
         Me.lblTitulo.TabIndex = 0
         Me.lblTitulo.Text = "GOXODENDA"
         '
+        'pnlTpv
+        '
+        Me.pnlTpv.Location = New System.Drawing.Point(137, 59)
+        Me.pnlTpv.Name = "pnlTpv"
+        Me.pnlTpv.Size = New System.Drawing.Size(426, 292)
+        Me.pnlTpv.TabIndex = 15
+        '
         'FormTpv
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -389,7 +389,6 @@ Partial Class FormTpv
     Friend WithEvents btnPatatas As Button
     Friend WithEvents btnPan As Button
     Friend WithEvents btnChuches As Button
-    Friend WithEvents pnlTPV As Panel
     Friend WithEvents btnBolleria As Button
     Friend WithEvents btnBebidas As Button
     Friend WithEvents lblTotal As Label
@@ -411,4 +410,5 @@ Partial Class FormTpv
     Friend WithEvents btnTpv2 As Button
     Friend WithEvents btnTpv1 As Button
     Friend WithEvents lblCantidadProd As Label
+    Friend WithEvents pnlTpv As FlowLayoutPanel
 End Class

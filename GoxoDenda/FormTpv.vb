@@ -16,22 +16,6 @@ Public Class FormTpv
 
     Public Property Hoy As DateTime
 
-    Function getArticulos(nombre As String, id As String)
-
-        Dim query = "SELECT NOMBRE, IDARTICULO FROM ARTICULOS WHERE NOMBRE = @nombre AND IDARTICULO = @id"
-
-        Dim conn = DB.Connection()
-        conn.Open()
-        Dim oledbCommand = New OleDbCommand(query, conn)
-        oledbCommand.Parameters.AddWithValue("@nombre", nombre)
-        'oledbCommand.Parameters.AddWithValue("@contrasena", contrasena)
-        Dim tabla = New DataTable
-        Dim executeReader = oledbCommand.ExecuteReader()
-        tabla.Load(executeReader)
-        conn.Close()
-        Return tabla.Rows.Count
-    End Function
-
     Function buscarArticuloPorId(id As String)
         Dim query = "SELECT NOMBRE, PRECIO FROM ARTICULOS WHERE IDARTICULO = @id"
         Dim conn = DAO.Connection()
@@ -78,7 +62,7 @@ Public Class FormTpv
     Function buscarArticulosPorCategoria(categoria As String)
 
         Dim query = "SELECT NOMBRE, IDARTICULO, PRECIO FROM ARTICULOS WHERE IDCATEGORIA = @categoria"
-        Dim conn = Connection()
+        Dim conn = DAO.Connection()
         conn.Open()
         Dim oledbCommand = New OleDbCommand(query, conn)
         oledbCommand.Parameters.AddWithValue("@categoria", categoria)
@@ -90,23 +74,14 @@ Public Class FormTpv
         Return tablaArticulos
     End Function
 
-    Private Sub btnBebidas_Click(sender As Object, e As EventArgs) Handles btnBebidas.Click
-        'articulos.Clear()
-        pnlTPV.Controls.Clear()
-        articulos = buscarArticulosPorCategoria("BEB")
 
-        For Each row In articulos.Rows
-            pnlTPV.Controls.Add(CreateButton(row("NOMBRE"), row("IDARTICULO"), row("Precio")))
-        Next
 
-    End Sub
-
-    Function CreateButton(nombre As String, id As String, precio As Double) As Button
+    Function CreateButton(nombre As String, id As String) As Button
         Dim myCtrl As New Button
         With myCtrl
             .Size = New Size(75, 75)
             .Text = nombre
-            .TextAlign = ContentAlignment.BottomCenter
+            .TextAlign = ContentAlignment.MiddleCenter
             .Font = lblTamano.Font
             .ForeColor = Color.Blue
             .Tag = id
@@ -121,6 +96,17 @@ Public Class FormTpv
 
         Return myCtrl
     End Function
+#Region "===== BOTONES DE CATEGORIA ====="
+    Private Sub btnBebidas_Click(sender As Object, e As EventArgs) Handles btnBebidas.Click
+        'articulos.Clear()
+        pnlTpv.Controls.Clear()
+        articulos = buscarArticulosPorCategoria("BEB")
+
+        For Each row In articulos.Rows
+            pnlTpv.Controls.Add(CreateButton(row("NOMBRE"), row("IDARTICULO")))
+        Next
+
+    End Sub
 
     Private Sub theButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
@@ -138,14 +124,51 @@ Public Class FormTpv
         pnlTPV.Controls.Clear()
         articulos = buscarArticulosPorCategoria("BOL")
         Console.WriteLine(articulos.Rows.Count)
-        insertTrabajador("aurelio", "1234", "41233124L")
-        For Each row In articulos.Rows
-            pnlTPV.Controls.Add(CreateButton(row("NOMBRE"), row("IDARTICULO"), row("Precio")))
-        Next
+        For Each row As DataRow In articulos.Rows
+            pnlTpv.Controls.Add(CreateButton(row("NOMBRE"), row("IDARTICULO")))
+        Next row
         fecha = Hoy
-        MsgBox($"{fecha}")
     End Sub
 
+    Private Sub btnChuches_Click(sender As Object, e As EventArgs) Handles btnChuches.Click
+        pnlTpv.Controls.Clear()
+        articulos = buscarArticulosPorCategoria("GOM")
+        Console.WriteLine(articulos.Rows.Count)
+        For Each row In articulos.Rows
+            pnlTpv.Controls.Add(CreateButton(row("NOMBRE"), row("IDARTICULO")))
+        Next
+        fecha = Hoy
+    End Sub
+
+    Private Sub btnPan_Click(sender As Object, e As EventArgs) Handles btnPan.Click
+        pnlTpv.Controls.Clear()
+        articulos = buscarArticulosPorCategoria("PAN")
+        Console.WriteLine(articulos.Rows.Count)
+        For Each row In articulos.Rows
+            pnlTpv.Controls.Add(CreateButton(row("NOMBRE"), row("IDARTICULO")))
+        Next
+        fecha = Hoy
+    End Sub
+
+    Private Sub btnPatatas_Click(sender As Object, e As EventArgs) Handles btnPatatas.Click
+        pnlTpv.Controls.Clear()
+        articulos = buscarArticulosPorCategoria("PAT")
+        Console.WriteLine(articulos.Rows.Count)
+        For Each row In articulos.Rows
+            pnlTpv.Controls.Add(CreateButton(row("NOMBRE"), row("IDARTICULO")))
+        Next
+        fecha = Hoy
+    End Sub
+
+    Private Sub btnVarios_Click(sender As Object, e As EventArgs) Handles btnVarios.Click
+        pnlTpv.Controls.Clear()
+        articulos = buscarArticulosPorCategoria("VAR")
+        For Each row In articulos.Rows
+            pnlTpv.Controls.Add(CreateButton(row("NOMBRE"), row("IDARTICULO")))
+        Next
+        fecha = Hoy
+    End Sub
+#End Region
     Private Sub crearPedido(idTrabajador As Integer)
         Dim query = "INSERT INTO PEDIDOS (IDTRABAJADOR, FECHA, PRECIOTOTAL) VALUES (@idTrabajador, @fecha,
                         @precioTotal)"
@@ -214,7 +237,7 @@ Public Class FormTpv
 
     End Sub
 
-#Region "BOTONES CANTIDAD"
+#Region "====== BOTONES CANTIDAD ======"
     Private Sub btnTpv1_Click(sender As Object, e As EventArgs) Handles btnTpv1.Click
         cantidadArticulo = cantidadArticulo * 10 + 1
         i += 1
@@ -296,4 +319,6 @@ Public Class FormTpv
         End If
 
     End Sub
+
+
 End Class
