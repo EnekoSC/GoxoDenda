@@ -12,6 +12,7 @@ Public Class FormTpv
     Dim cantidadArticulo As Integer
     Dim i = 0
     Dim fecha As Date
+    Dim fechaActual As Date = Date.Now
 
     Public Property Hoy As DateTime
 
@@ -49,6 +50,29 @@ Public Class FormTpv
         tablaArticulos.Load(executeReader)
         conn.Close()
         Return tablaArticulos
+    End Function
+
+    Function buscarPedido(idPedido As Integer)
+        Dim query = "SELECT * FROM PEDIDOS WHERE IDPEDIDO = @idPedido"
+        Dim conn = DAO.Connection()
+        conn.Open()
+        Dim oleDbCommand = New OleDbCommand(query, conn)
+        oleDbCommand.Parameters.AddWithValue("@idPedido", idPedido)
+        Dim tablaPedidos = New DataTable
+        Dim executeReader = oleDbCommand.ExecuteReader()
+        Dim fecha
+
+        If executeReader.HasRows Then
+            fecha = executeReader.GetDataTypeName(2)
+            tablaPedidos.Load(executeReader)
+            MsgBox(tablaPedidos.Rows(0).Item(2))
+
+            MsgBox($"{fecha}")
+        End If
+
+        conn.Close()
+        Return tablaPedidos
+
     End Function
 
     Function buscarArticulosPorCategoria(categoria As String)
@@ -99,7 +123,6 @@ Public Class FormTpv
     End Function
 
     Private Sub theButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'Aquí deberia poner la línea para obtener el precio y sumar al total
 
         '       sender.Text + vbCrLf +
         idArticulo = sender.tag
@@ -115,37 +138,59 @@ Public Class FormTpv
         pnlTPV.Controls.Clear()
         articulos = buscarArticulosPorCategoria("BOL")
         Console.WriteLine(articulos.Rows.Count)
-
+        insertTrabajador("aurelio", "1234", "41233124L")
         For Each row In articulos.Rows
             pnlTPV.Controls.Add(CreateButton(row("NOMBRE"), row("IDARTICULO"), row("Precio")))
         Next
+        fecha = Hoy
+        MsgBox($"{fecha}")
+    End Sub
+
+    Private Sub crearPedido(idTrabajador As Integer)
+        Dim query = "INSERT INTO PEDIDOS (IDTRABAJADOR, FECHA, PRECIOTOTAL) VALUES (@idTrabajador, @fecha,
+                        @precioTotal)"
+        fecha = Date.Now
+        Dim conn = DAO.Connection()
+        conn.Open()
+
+        Dim oledbCommand = New OleDbCommand(query, conn)
+        With oledbCommand
+            .Parameters.AddWithValue("@idTrabajador", idTrabajador)
+            .Parameters.AddWithValue("@fecha", fecha.ToString)
+            .Parameters.AddWithValue("@precioTotal", 0)
+        End With
+
+        oledbCommand.ExecuteNonQuery()
+        conn.Close()
 
     End Sub
 
-    Private Sub crearPedido(idPedido As Integer, idTrabajador As Integer)
-        Dim query = "INSERT INTO PEDIDOS (IDPEDIDO, IDTRABAJADOR, FECHA, PRECIOTOTAL) VALUES (@idPedido, @idTrabajador, @fecha,
-                        @precioTotal"
-        fecha = Hoy
-        Dim conn = DB.Connection
-        Dim oledbCommand = New OleDbCommand(query, conn)
-        With oledbCommand
-            .Parameters.AddWithValue("@idPedido", idPedido)
-            .Parameters.AddWithValue("@idTrabajador", idTrabajador)
-            .Parameters.AddWithValue("@fecha", fecha)
-            .Parameters.AddWithValue("@precioTotal", 0)
+    Private Sub buscarIdPedido(fechaActual As Date)
+        Dim fechaLocal As String
+        fechaLocal = fechaActual.ToString
+
+        Dim query = "SELECT * FROM PEDIDOS WHERE Fecha = @fecha"
+        Dim conn = Connection()
+        conn.Open()
+        Dim oleDbCommand = New OleDbCommand(query, conn)
+        With oleDbCommand
+            .Parameters.AddWithValue("@fecha", fechaLocal)
         End With
-        Try
-            conn.Open()
-            oledbCommand.ExecuteNonQuery()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message.ToString(), "Error")
-        End Try
+        Dim tablaLocal As DataTable
+        Dim executeReader = oleDbCommand.ExecuteReader()
+
+        If executeReader.HasRows Then
+            tablaLocal.Load(executeReader)
+            idPedido = tablaLocal.Rows(0).Item(1)
+        End If
+        conn.Close()
     End Sub
 
     Private Sub insertarLinea(idArticulo As String, idPedido As Integer, cantidadArticulo As Integer, precio As String)
         Dim query = "INSERT INTO LINEASDEPEDIDO (IDARTICULO, IDPEDIDO, CANTIDAD, PRECIO) VALUES (@idArticulo, @idPedido, 
                         @cantidadArticulo, @precio)"
         Dim conn = DB.Connection()
+        conn.Open()
         Dim oledbCommand = New OleDbCommand(query, conn)
         With oledbCommand
             .Parameters.AddWithValue("@idArticulo", idArticulo)
@@ -153,81 +198,86 @@ Public Class FormTpv
             .Parameters.AddWithValue("@cantidadArticulo", cantidadArticulo)
             .Parameters.AddWithValue("@precio", precio)
         End With
-        Try
-            conn.Open()
-            oledbCommand.ExecuteNonQuery()
 
-        Catch ex As Exception
-            MessageBox.Show(ex.Message.ToString(), "Error")
-        End Try
+
+        oledbCommand.ExecuteNonQuery()
+
+        'Try
+        'conn.Open()
+        'oledbCommand.ExecuteNonQuery()
+
+        'Catch ex As Exception
+        'MessageBox.Show(ex.Message.ToString(), "Error")
+        'End Try
+        conn.Close()
 
 
     End Sub
 
 #Region "BOTONES CANTIDAD"
     Private Sub btnTpv1_Click(sender As Object, e As EventArgs) Handles btnTpv1.Click
-        cantidadArticulo = cantidadArticulo + (10 ^ i) * 1
+        cantidadArticulo = cantidadArticulo * 10 + 1
         i += 1
-        lblCantidadProd.Text = "Cantidad: " + cantidadArticulo
+        lblCantidadProd.Text = "Cantidad: " + $"{cantidadArticulo}"
     End Sub
 
-    Private Sub btnTpv2_Click(sender As Object, e As EventArgs) Handles btnTpv1.Click
-        cantidadArticulo = cantidadArticulo + (10 ^ i) * 2
+    Private Sub btnTpv2_Click(sender As Object, e As EventArgs) Handles btnTpv2.Click
+        cantidadArticulo = cantidadArticulo * 10 + 2
         i += 1
-        lblCantidadProd.Text = "Cantidad: " + cantidadArticulo
+        lblCantidadProd.Text = "Cantidad: " + $"{cantidadArticulo}"
     End Sub
 
-    Private Sub btnTpv3_Click(sender As Object, e As EventArgs) Handles btnTpv1.Click
-        cantidadArticulo = cantidadArticulo + (10 ^ i) * 3
+    Private Sub btnTpv3_Click(sender As Object, e As EventArgs) Handles btnTpv3.Click
+        cantidadArticulo = cantidadArticulo * 10 + 3
         i += 1
-        lblCantidadProd.Text = "Cantidad: " + cantidadArticulo
+        lblCantidadProd.Text = "Cantidad: " + $"{cantidadArticulo}"
     End Sub
 
-    Private Sub btnTpv4_Click(sender As Object, e As EventArgs) Handles btnTpv1.Click
-        cantidadArticulo = cantidadArticulo + (10 ^ i) * 4
+    Private Sub btnTpv4_Click(sender As Object, e As EventArgs) Handles btnTpv4.Click
+        cantidadArticulo = cantidadArticulo * 10 + 4
         i += 1
-        lblCantidadProd.Text = "Cantidad: " + cantidadArticulo
+        lblCantidadProd.Text = "Cantidad: " + $"{cantidadArticulo}"
     End Sub
 
-    Private Sub btnTpv5_Click(sender As Object, e As EventArgs) Handles btnTpv1.Click
-        cantidadArticulo = cantidadArticulo + (10 ^ i) * 5
+    Private Sub btnTpv5_Click(sender As Object, e As EventArgs) Handles btnTpv5.Click
+        cantidadArticulo = cantidadArticulo * 10 + 5
         i += 1
-        lblCantidadProd.Text = "Cantidad: " + cantidadArticulo
+        lblCantidadProd.Text = "Cantidad: " + $"{cantidadArticulo}"
     End Sub
 
-    Private Sub btnTpv6_Click(sender As Object, e As EventArgs) Handles btnTpv1.Click
-        cantidadArticulo = cantidadArticulo + (10 ^ i) * 6
+    Private Sub btnTpv6_Click(sender As Object, e As EventArgs) Handles btnTpv6.Click
+        cantidadArticulo = cantidadArticulo * 10 + 6
         i += 1
-        lblCantidadProd.Text = "Cantidad: " + cantidadArticulo
+        lblCantidadProd.Text = "Cantidad: " + $"{cantidadArticulo}"
     End Sub
 
-    Private Sub btnTpv7_Click(sender As Object, e As EventArgs) Handles btnTpv1.Click
-        cantidadArticulo = cantidadArticulo + (10 ^ i) * 7
+    Private Sub btnTpv7_Click(sender As Object, e As EventArgs) Handles btnTpv7.Click
+        cantidadArticulo = cantidadArticulo * 10 + 7
         i += 1
-        lblCantidadProd.Text = "Cantidad: " + cantidadArticulo
+        lblCantidadProd.Text = "Cantidad: " + $"{cantidadArticulo}"
     End Sub
 
-    Private Sub btnTpv8_Click(sender As Object, e As EventArgs) Handles btnTpv1.Click
-        cantidadArticulo = cantidadArticulo + (10 ^ i) * 8
+    Private Sub btnTpv8_Click(sender As Object, e As EventArgs) Handles btnTpv8.Click
+        cantidadArticulo = cantidadArticulo * 10 + 8
         i += 1
-        lblCantidadProd.Text = "Cantidad: " + cantidadArticulo
+        lblCantidadProd.Text = "Cantidad: " + $"{cantidadArticulo}"
     End Sub
 
-    Private Sub btnTpv9_Click(sender As Object, e As EventArgs) Handles btnTpv1.Click
-        cantidadArticulo = cantidadArticulo + (10 ^ i) * 9
+    Private Sub btnTpv9_Click(sender As Object, e As EventArgs) Handles btnTpv9.Click
+        cantidadArticulo = cantidadArticulo * 10 + 9
         i += 1
-        lblCantidadProd.Text = "Cantidad: " + cantidadArticulo
+        lblCantidadProd.Text = "Cantidad: " + $"{cantidadArticulo}"
     End Sub
 
-    Private Sub btnTpv0_Click(sender As Object, e As EventArgs) Handles btnTpv1.Click
-        cantidadArticulo = cantidadArticulo + (10 ^ i)
+    Private Sub btnTpv0_Click(sender As Object, e As EventArgs) Handles btnTpv0.Click
+        cantidadArticulo = cantidadArticulo * 10
         i += 1
-        lblCantidadProd.Text = "Cantidad: " + cantidadArticulo
+        lblCantidadProd.Text = "Cantidad: " + $"{cantidadArticulo}"
     End Sub
 
     Private Sub btnCantidadEliminar_Click(sender As Object, e As EventArgs) Handles btnCantidadEliminar.Click
         cantidadArticulo = 0
-        lblCantidadProd.Text = "Cantidad: " + cantidadArticulo
+        lblCantidadProd.Text = "Cantidad: " + $"{cantidadArticulo}"
     End Sub
 
 #End Region
@@ -236,8 +286,13 @@ Public Class FormTpv
         If idArticulo = "" Then
             MsgBox("Debes seleccionar un artículo antes de meter la cantidad.")
         Else
-            crearPedido(1, ControladorUsuarios.idTrabajador)
-            'insertarLinea(idArticulo, ) PARAMETROS
+
+            crearPedido(ControladorUsuarios.idTrabajador)
+            buscarIdPedido(fecha)
+            MsgBox($"{idPedido}")
+            'insertarLinea(idArticulo, idPedido, cantidadArticulo, precioArticulo)
+            cantidadArticulo = 0
+            idArticulo = ""
         End If
 
     End Sub

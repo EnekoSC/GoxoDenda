@@ -12,7 +12,7 @@ Module ControladorUsuarios
         Dim conn = DAO.Connection()
         conn.Open()
         Dim cmd = conn.CreateCommand()
-        cmd.CommandText = "INSERT INTO TRABAJADORES (NOMBRE, CONTRASEÑA, DNI, VENTATOTAL) 
+        cmd.CommandText = "INSERT INTO TRABAJADORES (NOMBRE, CONTRASENA, DNI, VENTATOTAL) 
                             VALUES (@nombre, @contrasena, @dni, @ventaTotal)"
         cmd.Parameters.AddWithValue("@nombre", nombre)
         cmd.Parameters.AddWithValue("@contrasena", contrasena)
