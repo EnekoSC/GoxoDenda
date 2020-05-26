@@ -22,8 +22,11 @@ Partial Class FormTpv
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormTpv))
         Me.pnlPrincipal = New System.Windows.Forms.Panel()
+        Me.lblTpvPrecio = New System.Windows.Forms.Label()
+        Me.pnlTpv = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblCantidadProd = New System.Windows.Forms.Label()
         Me.pnlCantidad = New System.Windows.Forms.Panel()
         Me.btnCantidadOK = New System.Windows.Forms.Button()
@@ -40,7 +43,7 @@ Partial Class FormTpv
         Me.btnTpv1 = New System.Windows.Forms.Button()
         Me.lblTamano = New System.Windows.Forms.Label()
         Me.lblCuentaTotal = New System.Windows.Forms.Label()
-        Me.btnFinalizar = New System.Windows.Forms.Button()
+        Me.btnVisualizar = New System.Windows.Forms.Button()
         Me.btnPrincipalMenu = New System.Windows.Forms.Button()
         Me.btnVarios = New System.Windows.Forms.Button()
         Me.btnPatatas = New System.Windows.Forms.Button()
@@ -50,20 +53,32 @@ Partial Class FormTpv
         Me.btnBebidas = New System.Windows.Forms.Button()
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.lblTitulo = New System.Windows.Forms.Label()
-        Me.pnlTpv = New System.Windows.Forms.FlowLayoutPanel()
+        Me.pnlTpvFactura = New System.Windows.Forms.Panel()
+        Me.lblTpvFacTitulo = New System.Windows.Forms.Label()
+        Me.btnTpvFacAtras = New System.Windows.Forms.Button()
+        Me.btnTpvFacEliminar = New System.Windows.Forms.Button()
+        Me.btnTpvFacFin = New System.Windows.Forms.Button()
+        Me.DgvLineas = New System.Windows.Forms.DataGridView()
+        Me.GoxoDendaDataSetBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.GoxoDendaDataSet = New GoxoDenda.GoxoDendaDataSet()
         Me.pnlPrincipal.SuspendLayout()
         Me.pnlCantidad.SuspendLayout()
+        Me.pnlTpvFactura.SuspendLayout()
+        CType(Me.DgvLineas, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GoxoDendaDataSetBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GoxoDendaDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pnlPrincipal
         '
         Me.pnlPrincipal.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.pnlPrincipal.Controls.Add(Me.lblTpvPrecio)
         Me.pnlPrincipal.Controls.Add(Me.pnlTpv)
         Me.pnlPrincipal.Controls.Add(Me.lblCantidadProd)
         Me.pnlPrincipal.Controls.Add(Me.pnlCantidad)
         Me.pnlPrincipal.Controls.Add(Me.lblTamano)
         Me.pnlPrincipal.Controls.Add(Me.lblCuentaTotal)
-        Me.pnlPrincipal.Controls.Add(Me.btnFinalizar)
+        Me.pnlPrincipal.Controls.Add(Me.btnVisualizar)
         Me.pnlPrincipal.Controls.Add(Me.btnPrincipalMenu)
         Me.pnlPrincipal.Controls.Add(Me.btnVarios)
         Me.pnlPrincipal.Controls.Add(Me.btnPatatas)
@@ -77,6 +92,23 @@ Partial Class FormTpv
         Me.pnlPrincipal.Name = "pnlPrincipal"
         Me.pnlPrincipal.Size = New System.Drawing.Size(827, 454)
         Me.pnlPrincipal.TabIndex = 9
+        '
+        'lblTpvPrecio
+        '
+        Me.lblTpvPrecio.AutoSize = True
+        Me.lblTpvPrecio.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTpvPrecio.Location = New System.Drawing.Point(582, 352)
+        Me.lblTpvPrecio.Name = "lblTpvPrecio"
+        Me.lblTpvPrecio.Size = New System.Drawing.Size(71, 22)
+        Me.lblTpvPrecio.TabIndex = 16
+        Me.lblTpvPrecio.Text = "Precio:"
+        '
+        'pnlTpv
+        '
+        Me.pnlTpv.Location = New System.Drawing.Point(137, 59)
+        Me.pnlTpv.Name = "pnlTpv"
+        Me.pnlTpv.Size = New System.Drawing.Size(426, 292)
+        Me.pnlTpv.TabIndex = 15
         '
         'lblCantidadProd
         '
@@ -241,28 +273,28 @@ Partial Class FormTpv
         '
         'lblCuentaTotal
         '
-        Me.lblCuentaTotal.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCuentaTotal.Location = New System.Drawing.Point(698, 413)
+        Me.lblCuentaTotal.Font = New System.Drawing.Font("Century Gothic", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCuentaTotal.Location = New System.Drawing.Point(708, 404)
         Me.lblCuentaTotal.Name = "lblCuentaTotal"
-        Me.lblCuentaTotal.Size = New System.Drawing.Size(104, 22)
+        Me.lblCuentaTotal.Size = New System.Drawing.Size(104, 28)
         Me.lblCuentaTotal.TabIndex = 12
         Me.lblCuentaTotal.Text = "0,00€"
         Me.lblCuentaTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'btnFinalizar
+        'btnVisualizar
         '
-        Me.btnFinalizar.BackColor = System.Drawing.Color.DimGray
-        Me.btnFinalizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.btnFinalizar.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.btnFinalizar.FlatAppearance.BorderSize = 0
-        Me.btnFinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnFinalizar.ForeColor = System.Drawing.Color.Transparent
-        Me.btnFinalizar.Image = CType(resources.GetObject("btnFinalizar.Image"), System.Drawing.Image)
-        Me.btnFinalizar.Location = New System.Drawing.Point(510, 399)
-        Me.btnFinalizar.Name = "btnFinalizar"
-        Me.btnFinalizar.Size = New System.Drawing.Size(54, 46)
-        Me.btnFinalizar.TabIndex = 11
-        Me.btnFinalizar.UseVisualStyleBackColor = False
+        Me.btnVisualizar.BackColor = System.Drawing.Color.DimGray
+        Me.btnVisualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.btnVisualizar.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.btnVisualizar.FlatAppearance.BorderSize = 0
+        Me.btnVisualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnVisualizar.ForeColor = System.Drawing.Color.Transparent
+        Me.btnVisualizar.Image = CType(resources.GetObject("btnVisualizar.Image"), System.Drawing.Image)
+        Me.btnVisualizar.Location = New System.Drawing.Point(510, 399)
+        Me.btnVisualizar.Name = "btnVisualizar"
+        Me.btnVisualizar.Size = New System.Drawing.Size(54, 46)
+        Me.btnVisualizar.TabIndex = 11
+        Me.btnVisualizar.UseVisualStyleBackColor = False
         '
         'btnPrincipalMenu
         '
@@ -277,6 +309,7 @@ Partial Class FormTpv
         'btnVarios
         '
         Me.btnVarios.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnVarios.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnVarios.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnVarios.Location = New System.Drawing.Point(4, 233)
         Me.btnVarios.Name = "btnVarios"
@@ -288,6 +321,7 @@ Partial Class FormTpv
         'btnPatatas
         '
         Me.btnPatatas.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnPatatas.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnPatatas.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnPatatas.Location = New System.Drawing.Point(4, 198)
         Me.btnPatatas.Name = "btnPatatas"
@@ -299,6 +333,7 @@ Partial Class FormTpv
         'btnPan
         '
         Me.btnPan.BackColor = System.Drawing.Color.PaleGreen
+        Me.btnPan.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnPan.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnPan.Location = New System.Drawing.Point(5, 162)
         Me.btnPan.Name = "btnPan"
@@ -310,6 +345,7 @@ Partial Class FormTpv
         'btnChuches
         '
         Me.btnChuches.BackColor = System.Drawing.Color.Aquamarine
+        Me.btnChuches.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnChuches.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnChuches.Location = New System.Drawing.Point(4, 127)
         Me.btnChuches.Name = "btnChuches"
@@ -321,6 +357,7 @@ Partial Class FormTpv
         'btnBolleria
         '
         Me.btnBolleria.BackColor = System.Drawing.Color.Yellow
+        Me.btnBolleria.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnBolleria.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnBolleria.Location = New System.Drawing.Point(5, 92)
         Me.btnBolleria.Name = "btnBolleria"
@@ -332,6 +369,7 @@ Partial Class FormTpv
         'btnBebidas
         '
         Me.btnBebidas.BackColor = System.Drawing.Color.LightCoral
+        Me.btnBebidas.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnBebidas.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnBebidas.Location = New System.Drawing.Point(5, 57)
         Me.btnBebidas.Name = "btnBebidas"
@@ -343,10 +381,10 @@ Partial Class FormTpv
         'lblTotal
         '
         Me.lblTotal.AutoSize = True
-        Me.lblTotal.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotal.Location = New System.Drawing.Point(629, 413)
+        Me.lblTotal.Font = New System.Drawing.Font("Century Gothic", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotal.Location = New System.Drawing.Point(580, 402)
         Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(63, 22)
+        Me.lblTotal.Size = New System.Drawing.Size(92, 33)
         Me.lblTotal.TabIndex = 1
         Me.lblTotal.Text = "Total: "
         '
@@ -361,12 +399,81 @@ Partial Class FormTpv
         Me.lblTitulo.TabIndex = 0
         Me.lblTitulo.Text = "GOXODENDA"
         '
-        'pnlTpv
+        'pnlTpvFactura
         '
-        Me.pnlTpv.Location = New System.Drawing.Point(137, 59)
-        Me.pnlTpv.Name = "pnlTpv"
-        Me.pnlTpv.Size = New System.Drawing.Size(426, 292)
-        Me.pnlTpv.TabIndex = 15
+        Me.pnlTpvFactura.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.pnlTpvFactura.Controls.Add(Me.lblTpvFacTitulo)
+        Me.pnlTpvFactura.Controls.Add(Me.btnTpvFacAtras)
+        Me.pnlTpvFactura.Controls.Add(Me.btnTpvFacEliminar)
+        Me.pnlTpvFactura.Controls.Add(Me.btnTpvFacFin)
+        Me.pnlTpvFactura.Controls.Add(Me.DgvLineas)
+        Me.pnlTpvFactura.Location = New System.Drawing.Point(0, 0)
+        Me.pnlTpvFactura.Name = "pnlTpvFactura"
+        Me.pnlTpvFactura.Size = New System.Drawing.Size(824, 454)
+        Me.pnlTpvFactura.TabIndex = 17
+        '
+        'lblTpvFacTitulo
+        '
+        Me.lblTpvFacTitulo.AutoSize = True
+        Me.lblTpvFacTitulo.Font = New System.Drawing.Font("Century Gothic", 26.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTpvFacTitulo.ForeColor = System.Drawing.Color.Black
+        Me.lblTpvFacTitulo.Location = New System.Drawing.Point(223, 9)
+        Me.lblTpvFacTitulo.Name = "lblTpvFacTitulo"
+        Me.lblTpvFacTitulo.Size = New System.Drawing.Size(396, 42)
+        Me.lblTpvFacTitulo.TabIndex = 12
+        Me.lblTpvFacTitulo.Text = "Detalles de la compra"
+        '
+        'btnTpvFacAtras
+        '
+        Me.btnTpvFacAtras.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnTpvFacAtras.Location = New System.Drawing.Point(38, 399)
+        Me.btnTpvFacAtras.Name = "btnTpvFacAtras"
+        Me.btnTpvFacAtras.Size = New System.Drawing.Size(114, 29)
+        Me.btnTpvFacAtras.TabIndex = 11
+        Me.btnTpvFacAtras.Text = "Atrás"
+        Me.btnTpvFacAtras.UseVisualStyleBackColor = True
+        '
+        'btnTpvFacEliminar
+        '
+        Me.btnTpvFacEliminar.BackColor = System.Drawing.Color.LightCoral
+        Me.btnTpvFacEliminar.Font = New System.Drawing.Font("Century Gothic", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnTpvFacEliminar.Location = New System.Drawing.Point(152, 310)
+        Me.btnTpvFacEliminar.Name = "btnTpvFacEliminar"
+        Me.btnTpvFacEliminar.Size = New System.Drawing.Size(168, 64)
+        Me.btnTpvFacEliminar.TabIndex = 3
+        Me.btnTpvFacEliminar.Text = "Eliminar"
+        Me.btnTpvFacEliminar.UseVisualStyleBackColor = False
+        '
+        'btnTpvFacFin
+        '
+        Me.btnTpvFacFin.BackColor = System.Drawing.Color.PaleGreen
+        Me.btnTpvFacFin.Font = New System.Drawing.Font("Century Gothic", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnTpvFacFin.Location = New System.Drawing.Point(510, 310)
+        Me.btnTpvFacFin.Name = "btnTpvFacFin"
+        Me.btnTpvFacFin.Size = New System.Drawing.Size(168, 64)
+        Me.btnTpvFacFin.TabIndex = 2
+        Me.btnTpvFacFin.Text = "Finalizar"
+        Me.btnTpvFacFin.UseVisualStyleBackColor = False
+        '
+        'DgvLineas
+        '
+        Me.DgvLineas.AutoGenerateColumns = False
+        Me.DgvLineas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DgvLineas.DataSource = Me.GoxoDendaDataSetBindingSource
+        Me.DgvLineas.Location = New System.Drawing.Point(85, 56)
+        Me.DgvLineas.Name = "DgvLineas"
+        Me.DgvLineas.Size = New System.Drawing.Size(652, 223)
+        Me.DgvLineas.TabIndex = 0
+        '
+        'GoxoDendaDataSetBindingSource
+        '
+        Me.GoxoDendaDataSetBindingSource.DataSource = Me.GoxoDendaDataSet
+        Me.GoxoDendaDataSetBindingSource.Position = 0
+        '
+        'GoxoDendaDataSet
+        '
+        Me.GoxoDendaDataSet.DataSetName = "GoxoDendaDataSet"
+        Me.GoxoDendaDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'FormTpv
         '
@@ -374,11 +481,17 @@ Partial Class FormTpv
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(824, 451)
         Me.Controls.Add(Me.pnlPrincipal)
+        Me.Controls.Add(Me.pnlTpvFactura)
         Me.Name = "FormTpv"
         Me.Text = "Goxo Denda App"
         Me.pnlPrincipal.ResumeLayout(False)
         Me.pnlPrincipal.PerformLayout()
         Me.pnlCantidad.ResumeLayout(False)
+        Me.pnlTpvFactura.ResumeLayout(False)
+        Me.pnlTpvFactura.PerformLayout()
+        CType(Me.DgvLineas, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GoxoDendaDataSetBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GoxoDendaDataSet, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -393,7 +506,7 @@ Partial Class FormTpv
     Friend WithEvents btnBebidas As Button
     Friend WithEvents lblTotal As Label
     Friend WithEvents lblTitulo As Label
-    Friend WithEvents btnFinalizar As Button
+    Friend WithEvents btnVisualizar As Button
     Friend WithEvents lblCuentaTotal As Label
     Friend WithEvents lblTamano As Label
     Friend WithEvents pnlCantidad As Panel
@@ -411,4 +524,13 @@ Partial Class FormTpv
     Friend WithEvents btnTpv1 As Button
     Friend WithEvents lblCantidadProd As Label
     Friend WithEvents pnlTpv As FlowLayoutPanel
+    Friend WithEvents lblTpvPrecio As Label
+    Friend WithEvents pnlTpvFactura As Panel
+    Friend WithEvents DgvLineas As DataGridView
+    Friend WithEvents GoxoDendaDataSetBindingSource As BindingSource
+    Friend WithEvents GoxoDendaDataSet As GoxoDendaDataSet
+    Friend WithEvents lblTpvFacTitulo As Label
+    Friend WithEvents btnTpvFacAtras As Button
+    Friend WithEvents btnTpvFacEliminar As Button
+    Friend WithEvents btnTpvFacFin As Button
 End Class

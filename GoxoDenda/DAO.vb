@@ -16,7 +16,7 @@ Namespace DAO
             getConnection = New OleDbConnection(connString)
         End Function
 
-        Private Function DataAdapter() As OleDbDataAdapter 'SqlDataAdapter
+        Public Function DataAdapter() As OleDbDataAdapter 'SqlDataAdapter
             'Return New SqlClient.SqlDataAdapter(DirectCast(cmd, SqlCommand))
             Return New OleDbDataAdapter()
         End Function

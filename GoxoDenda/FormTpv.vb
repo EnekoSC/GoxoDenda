@@ -7,12 +7,15 @@ Public Class FormTpv
     Dim idArticulo As String
     Dim nombreArticulo As String
     Dim precioArticulo As Double
+    Dim precioLinea As Double
     Dim totalCompra As Double
     Dim idPedido As Integer
     Dim cantidadArticulo As Integer
     Dim i = 0
     Dim fecha As Date
     Dim fechaActual As Date = Date.Now
+    Dim LineasDePedidoDt As DataTable
+    Dim reader As OleDbDataReader
 
     Public Property Hoy As DateTime
 
@@ -75,6 +78,17 @@ Public Class FormTpv
     End Function
 
 
+    Private Sub updatePedido()
+
+        Dim query = "UPDATE PEDIDOS SET PRECIOTOTAL = @precioTotal"
+        Dim conn = DAO.Connection()
+        conn.Open()
+        Dim oleDbCommand = New OleDbCommand(query, conn)
+        oleDbCommand.Parameters.AddWithValue("@precioTotal", totalCompra)
+        Dim executeReader = oleDbCommand.ExecuteNonQuery()
+        conn.Close()
+
+    End Sub
 
     Function CreateButton(nombre As String, id As String) As Button
         Dim myCtrl As New Button
@@ -83,7 +97,7 @@ Public Class FormTpv
             .Text = nombre
             .TextAlign = ContentAlignment.MiddleCenter
             .Font = lblTamano.Font
-            .ForeColor = Color.Blue
+            .ForeColor = Color.Black
             .Tag = id
             '.Image = Access.WinForm.My.Resources.Resources.pnglogo2
             '.ImageAlign = ContentAlignment.BottomCenter
@@ -96,6 +110,16 @@ Public Class FormTpv
 
         Return myCtrl
     End Function
+    Private Sub theButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+        '       sender.Text + vbCrLf +
+        idArticulo = sender.tag
+        Dim datosArticulo = buscarArticuloPorId(idArticulo)
+        Dim precio = datosArticulo
+        lblTpvPrecio.Text = "Precio: " + $"{precioArticulo}" + "€"
+        cantidadArticulo = 0
+        'SetForm(sender.tag)
+    End Sub
 #Region "===== BOTONES DE CATEGORIA ====="
     Private Sub btnBebidas_Click(sender As Object, e As EventArgs) Handles btnBebidas.Click
         'articulos.Clear()
@@ -106,17 +130,6 @@ Public Class FormTpv
             pnlTpv.Controls.Add(CreateButton(row("NOMBRE"), row("IDARTICULO")))
         Next
 
-    End Sub
-
-    Private Sub theButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-        '       sender.Text + vbCrLf +
-        idArticulo = sender.tag
-        Dim datosArticulo = buscarArticuloPorId(idArticulo)
-        Dim precio = datosArticulo
-        totalCompra = totalCompra + precioArticulo
-        lblCuentaTotal.Text = $"{totalCompra}" + "€"
-        'SetForm(sender.tag)
     End Sub
 
     Private Sub btnBolleria_Click(sender As Object, e As EventArgs) Handles btnBolleria.Click
@@ -169,7 +182,7 @@ Public Class FormTpv
         fecha = Hoy
     End Sub
 #End Region
-    Private Sub crearPedido(idTrabajador As Integer)
+    Private Sub pedidoVacio(idTrabajador As Integer)
         Dim query = "INSERT INTO PEDIDOS (IDTRABAJADOR, FECHA, PRECIOTOTAL) VALUES (@idTrabajador, @fecha,
                         @precioTotal)"
         fecha = Date.Now
@@ -188,23 +201,21 @@ Public Class FormTpv
 
     End Sub
 
-    Private Sub buscarIdPedido(fechaActual As Date)
-        Dim fechaLocal As String
-        fechaLocal = fechaActual.ToString
+    Private Sub buscarIdPedido()
+        'Obtengo el ID del nuevo pedido para hacer los insert
 
-        Dim query = "SELECT * FROM PEDIDOS WHERE Fecha = @fecha"
+        Dim query = "SELECT TOP 1 * FROM PEDIDOS ORDER BY IDPEDIDO DESC"
         Dim conn = Connection()
         conn.Open()
         Dim oleDbCommand = New OleDbCommand(query, conn)
-        With oleDbCommand
-            .Parameters.AddWithValue("@fecha", fechaLocal)
-        End With
-        Dim tablaLocal As DataTable
+
+        Dim tablaLocal = New DataTable
         Dim executeReader = oleDbCommand.ExecuteReader()
 
         If executeReader.HasRows Then
             tablaLocal.Load(executeReader)
-            idPedido = tablaLocal.Rows(0).Item(1)
+            idPedido = tablaLocal.Rows(0).Item(0)
+            Console.WriteLine("Pedido " + $"{idPedido}")
         End If
         conn.Close()
     End Sub
@@ -222,16 +233,7 @@ Public Class FormTpv
             .Parameters.AddWithValue("@precio", precio)
         End With
 
-
         oledbCommand.ExecuteNonQuery()
-
-        'Try
-        'conn.Open()
-        'oledbCommand.ExecuteNonQuery()
-
-        'Catch ex As Exception
-        'MessageBox.Show(ex.Message.ToString(), "Error")
-        'End Try
         conn.Close()
 
 
@@ -310,15 +312,63 @@ Public Class FormTpv
             MsgBox("Debes seleccionar un artículo antes de meter la cantidad.")
         Else
 
-            crearPedido(ControladorUsuarios.idTrabajador)
-            buscarIdPedido(fecha)
-            MsgBox($"{idPedido}")
-            'insertarLinea(idArticulo, idPedido, cantidadArticulo, precioArticulo)
+            'pedidoVacio(ControladorUsuarios.idTrabajador)
+            buscarIdPedido()
+            insertarLinea(idArticulo, idPedido, cantidadArticulo, (precioArticulo * cantidadArticulo))
+            totalCompra = totalCompra + (precioArticulo * cantidadArticulo)
+            lblCuentaTotal.Text = $"{totalCompra}" + "€"
             cantidadArticulo = 0
             idArticulo = ""
         End If
 
     End Sub
 
+    Private Sub cargarLineasDePedido()
+        LineasDePedidoDt = New DataTable
+        LineasDePedidoDt.Clear()
+        Dim query = "SELECT * FROM LINEASDEPEDIDO WHERE IDPEDIDO = @idPedido"
+        Dim conn = Connection()
+        Dim oleDbCommand = New OleDbCommand(query, conn)
+        conn.Open()
+        oleDbCommand.Parameters.AddWithValue("@idPedido", idPedido)
+        reader = oleDbCommand.ExecuteReader
+        While reader.Read()
+            LineasDePedidoDt.Rows.Add(reader.Item("IDLINEASDEPEDIDO"), reader.Item("IDARTICULO"), reader.Item("IDPEDIDO"),
+              reader.Item("Cantidad"), reader.Item("Precio"))
+        End While
 
+        DgvLineas.DataSource = LineasDePedidoDt
+    End Sub
+
+    Private Sub btnVisualizar_Click(sender As Object, e As EventArgs) Handles btnVisualizar.Click
+        pnlPrincipal.Visible = False
+        pnlTpvFactura.Visible = True
+
+        'With LineasDePedidoDt
+        '.Columns.Add("IDLINEA")
+        '.Columns.Add("IDARTICULO")
+        '.Columns.Add("IDPEDIDO")
+        '.Columns.Add("Cantidad")
+        '.Columns.Add("Precio")
+        'End With
+
+        cargarLineasDePedido()
+
+    End Sub
+
+    Private Sub btnTpvFacAtras_Click(sender As Object, e As EventArgs) Handles btnTpvFacAtras.Click
+        pnlTpvFactura.Visible = False
+        pnlPrincipal.Visible = True
+    End Sub
+
+    Private Sub btnTpvFacFin_Click(sender As Object, e As EventArgs) Handles btnTpvFacFin.Click
+        updatePedido()
+        idPedido += 1
+
+    End Sub
+
+    Private Sub btnPrincipalMenu_Click(sender As Object, e As EventArgs) Handles btnPrincipalMenu.Click
+        Me.Visible = False
+        FormMenu.Visible = True
+    End Sub
 End Class
