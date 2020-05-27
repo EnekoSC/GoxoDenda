@@ -28,19 +28,20 @@ Partial Class FormMenuArticulos
         Me.lblArtTitulo = New System.Windows.Forms.Label()
         Me.btnArtMod = New System.Windows.Forms.Button()
         Me.pnlModArticulos = New System.Windows.Forms.Panel()
+        Me.btnModArtGuardar = New System.Windows.Forms.Button()
+        Me.txtModArtPrecio = New System.Windows.Forms.TextBox()
+        Me.txtModArtNombre = New System.Windows.Forms.TextBox()
+        Me.txtModArtCategoria = New System.Windows.Forms.TextBox()
+        Me.txtModArtId = New System.Windows.Forms.TextBox()
+        Me.lblModArtPrecio = New System.Windows.Forms.Label()
+        Me.lblModArtCategoria = New System.Windows.Forms.Label()
+        Me.lblModArtId = New System.Windows.Forms.Label()
+        Me.lblModArtNombre = New System.Windows.Forms.Label()
+        Me.cmbModArt = New System.Windows.Forms.ComboBox()
         Me.btnModArtAtras = New System.Windows.Forms.Button()
         Me.lblModArtTitulo = New System.Windows.Forms.Label()
-        Me.cmbModArt = New System.Windows.Forms.ComboBox()
-        Me.lblModArtNombre = New System.Windows.Forms.Label()
-        Me.lblModArtId = New System.Windows.Forms.Label()
-        Me.lblModArtCategoria = New System.Windows.Forms.Label()
-        Me.lblModArtPrecio = New System.Windows.Forms.Label()
-        Me.txtModArtId = New System.Windows.Forms.TextBox()
-        Me.txtModArtCategoria = New System.Windows.Forms.TextBox()
-        Me.txtModArtNombre = New System.Windows.Forms.TextBox()
-        Me.txtModArtPrecio = New System.Windows.Forms.TextBox()
-        Me.btnModArtGuardar = New System.Windows.Forms.Button()
         Me.pnlNewArt = New System.Windows.Forms.Panel()
+        Me.cmbNewArtCategoria = New System.Windows.Forms.ComboBox()
         Me.btnNewArtFin = New System.Windows.Forms.Button()
         Me.txtNewArtPrecio = New System.Windows.Forms.TextBox()
         Me.txtNewArtNombre = New System.Windows.Forms.TextBox()
@@ -51,7 +52,6 @@ Partial Class FormMenuArticulos
         Me.lvlNewArtNombre = New System.Windows.Forms.Label()
         Me.btnNewArtAtras = New System.Windows.Forms.Button()
         Me.lblNewArtTitulo = New System.Windows.Forms.Label()
-        Me.cmbNewArtCategoria = New System.Windows.Forms.ComboBox()
         Me.pnlArtMenu.SuspendLayout()
         Me.pnlModArticulos.SuspendLayout()
         Me.pnlNewArt.SuspendLayout()
@@ -132,6 +132,98 @@ Partial Class FormMenuArticulos
         Me.pnlModArticulos.Size = New System.Drawing.Size(826, 453)
         Me.pnlModArticulos.TabIndex = 15
         '
+        'btnModArtGuardar
+        '
+        Me.btnModArtGuardar.BackColor = System.Drawing.SystemColors.Menu
+        Me.btnModArtGuardar.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnModArtGuardar.Location = New System.Drawing.Point(668, 396)
+        Me.btnModArtGuardar.Name = "btnModArtGuardar"
+        Me.btnModArtGuardar.Size = New System.Drawing.Size(101, 34)
+        Me.btnModArtGuardar.TabIndex = 22
+        Me.btnModArtGuardar.Text = "Guardar"
+        Me.btnModArtGuardar.UseVisualStyleBackColor = True
+        '
+        'txtModArtPrecio
+        '
+        Me.txtModArtPrecio.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtModArtPrecio.Location = New System.Drawing.Point(608, 279)
+        Me.txtModArtPrecio.Name = "txtModArtPrecio"
+        Me.txtModArtPrecio.Size = New System.Drawing.Size(69, 31)
+        Me.txtModArtPrecio.TabIndex = 21
+        '
+        'txtModArtNombre
+        '
+        Me.txtModArtNombre.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtModArtNombre.Location = New System.Drawing.Point(239, 215)
+        Me.txtModArtNombre.Name = "txtModArtNombre"
+        Me.txtModArtNombre.Size = New System.Drawing.Size(438, 31)
+        Me.txtModArtNombre.TabIndex = 20
+        '
+        'txtModArtCategoria
+        '
+        Me.txtModArtCategoria.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtModArtCategoria.Location = New System.Drawing.Point(437, 279)
+        Me.txtModArtCategoria.Name = "txtModArtCategoria"
+        Me.txtModArtCategoria.Size = New System.Drawing.Size(59, 31)
+        Me.txtModArtCategoria.TabIndex = 19
+        '
+        'txtModArtId
+        '
+        Me.txtModArtId.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtModArtId.Location = New System.Drawing.Point(188, 279)
+        Me.txtModArtId.Name = "txtModArtId"
+        Me.txtModArtId.Size = New System.Drawing.Size(92, 31)
+        Me.txtModArtId.TabIndex = 18
+        '
+        'lblModArtPrecio
+        '
+        Me.lblModArtPrecio.AutoSize = True
+        Me.lblModArtPrecio.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblModArtPrecio.Location = New System.Drawing.Point(511, 282)
+        Me.lblModArtPrecio.Name = "lblModArtPrecio"
+        Me.lblModArtPrecio.Size = New System.Drawing.Size(71, 22)
+        Me.lblModArtPrecio.TabIndex = 17
+        Me.lblModArtPrecio.Text = "Precio:"
+        '
+        'lblModArtCategoria
+        '
+        Me.lblModArtCategoria.AutoSize = True
+        Me.lblModArtCategoria.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblModArtCategoria.Location = New System.Drawing.Point(312, 282)
+        Me.lblModArtCategoria.Name = "lblModArtCategoria"
+        Me.lblModArtCategoria.Size = New System.Drawing.Size(109, 22)
+        Me.lblModArtCategoria.TabIndex = 16
+        Me.lblModArtCategoria.Text = "Categoría:"
+        '
+        'lblModArtId
+        '
+        Me.lblModArtId.AutoSize = True
+        Me.lblModArtId.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblModArtId.Location = New System.Drawing.Point(136, 282)
+        Me.lblModArtId.Name = "lblModArtId"
+        Me.lblModArtId.Size = New System.Drawing.Size(34, 22)
+        Me.lblModArtId.TabIndex = 15
+        Me.lblModArtId.Text = "ID:"
+        '
+        'lblModArtNombre
+        '
+        Me.lblModArtNombre.AutoSize = True
+        Me.lblModArtNombre.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblModArtNombre.Location = New System.Drawing.Point(136, 218)
+        Me.lblModArtNombre.Name = "lblModArtNombre"
+        Me.lblModArtNombre.Size = New System.Drawing.Size(89, 22)
+        Me.lblModArtNombre.TabIndex = 14
+        Me.lblModArtNombre.Text = "Nombre:"
+        '
+        'cmbModArt
+        '
+        Me.cmbModArt.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbModArt.FormattingEnabled = True
+        Me.cmbModArt.Location = New System.Drawing.Point(230, 133)
+        Me.cmbModArt.Name = "cmbModArt"
+        Me.cmbModArt.Size = New System.Drawing.Size(376, 30)
+        Me.cmbModArt.TabIndex = 13
+        '
         'btnModArtAtras
         '
         Me.btnModArtAtras.BackColor = System.Drawing.SystemColors.Menu
@@ -155,98 +247,6 @@ Partial Class FormMenuArticulos
         Me.lblModArtTitulo.TabIndex = 7
         Me.lblModArtTitulo.Text = "MODIFICAR ARTÍCULO"
         '
-        'cmbModArt
-        '
-        Me.cmbModArt.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbModArt.FormattingEnabled = True
-        Me.cmbModArt.Location = New System.Drawing.Point(230, 133)
-        Me.cmbModArt.Name = "cmbModArt"
-        Me.cmbModArt.Size = New System.Drawing.Size(376, 30)
-        Me.cmbModArt.TabIndex = 13
-        '
-        'lblModArtNombre
-        '
-        Me.lblModArtNombre.AutoSize = True
-        Me.lblModArtNombre.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblModArtNombre.Location = New System.Drawing.Point(136, 218)
-        Me.lblModArtNombre.Name = "lblModArtNombre"
-        Me.lblModArtNombre.Size = New System.Drawing.Size(89, 22)
-        Me.lblModArtNombre.TabIndex = 14
-        Me.lblModArtNombre.Text = "Nombre:"
-        '
-        'lblModArtId
-        '
-        Me.lblModArtId.AutoSize = True
-        Me.lblModArtId.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblModArtId.Location = New System.Drawing.Point(136, 282)
-        Me.lblModArtId.Name = "lblModArtId"
-        Me.lblModArtId.Size = New System.Drawing.Size(34, 22)
-        Me.lblModArtId.TabIndex = 15
-        Me.lblModArtId.Text = "ID:"
-        '
-        'lblModArtCategoria
-        '
-        Me.lblModArtCategoria.AutoSize = True
-        Me.lblModArtCategoria.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblModArtCategoria.Location = New System.Drawing.Point(312, 282)
-        Me.lblModArtCategoria.Name = "lblModArtCategoria"
-        Me.lblModArtCategoria.Size = New System.Drawing.Size(109, 22)
-        Me.lblModArtCategoria.TabIndex = 16
-        Me.lblModArtCategoria.Text = "Categoría:"
-        '
-        'lblModArtPrecio
-        '
-        Me.lblModArtPrecio.AutoSize = True
-        Me.lblModArtPrecio.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblModArtPrecio.Location = New System.Drawing.Point(511, 282)
-        Me.lblModArtPrecio.Name = "lblModArtPrecio"
-        Me.lblModArtPrecio.Size = New System.Drawing.Size(71, 22)
-        Me.lblModArtPrecio.TabIndex = 17
-        Me.lblModArtPrecio.Text = "Precio:"
-        '
-        'txtModArtId
-        '
-        Me.txtModArtId.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtModArtId.Location = New System.Drawing.Point(188, 279)
-        Me.txtModArtId.Name = "txtModArtId"
-        Me.txtModArtId.Size = New System.Drawing.Size(92, 31)
-        Me.txtModArtId.TabIndex = 18
-        '
-        'txtModArtCategoria
-        '
-        Me.txtModArtCategoria.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtModArtCategoria.Location = New System.Drawing.Point(437, 279)
-        Me.txtModArtCategoria.Name = "txtModArtCategoria"
-        Me.txtModArtCategoria.Size = New System.Drawing.Size(59, 31)
-        Me.txtModArtCategoria.TabIndex = 19
-        '
-        'txtModArtNombre
-        '
-        Me.txtModArtNombre.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtModArtNombre.Location = New System.Drawing.Point(239, 215)
-        Me.txtModArtNombre.Name = "txtModArtNombre"
-        Me.txtModArtNombre.Size = New System.Drawing.Size(438, 31)
-        Me.txtModArtNombre.TabIndex = 20
-        '
-        'txtModArtPrecio
-        '
-        Me.txtModArtPrecio.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtModArtPrecio.Location = New System.Drawing.Point(608, 279)
-        Me.txtModArtPrecio.Name = "txtModArtPrecio"
-        Me.txtModArtPrecio.Size = New System.Drawing.Size(69, 31)
-        Me.txtModArtPrecio.TabIndex = 21
-        '
-        'btnModArtGuardar
-        '
-        Me.btnModArtGuardar.BackColor = System.Drawing.SystemColors.Menu
-        Me.btnModArtGuardar.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnModArtGuardar.Location = New System.Drawing.Point(668, 396)
-        Me.btnModArtGuardar.Name = "btnModArtGuardar"
-        Me.btnModArtGuardar.Size = New System.Drawing.Size(101, 34)
-        Me.btnModArtGuardar.TabIndex = 22
-        Me.btnModArtGuardar.Text = "Guardar"
-        Me.btnModArtGuardar.UseVisualStyleBackColor = True
-        '
         'pnlNewArt
         '
         Me.pnlNewArt.Controls.Add(Me.cmbNewArtCategoria)
@@ -265,6 +265,15 @@ Partial Class FormMenuArticulos
         Me.pnlNewArt.Name = "pnlNewArt"
         Me.pnlNewArt.Size = New System.Drawing.Size(826, 453)
         Me.pnlNewArt.TabIndex = 16
+        '
+        'cmbNewArtCategoria
+        '
+        Me.cmbNewArtCategoria.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbNewArtCategoria.FormattingEnabled = True
+        Me.cmbNewArtCategoria.Location = New System.Drawing.Point(475, 226)
+        Me.cmbNewArtCategoria.Name = "cmbNewArtCategoria"
+        Me.cmbNewArtCategoria.Size = New System.Drawing.Size(201, 30)
+        Me.cmbNewArtCategoria.TabIndex = 23
         '
         'btnNewArtFin
         '
@@ -363,15 +372,6 @@ Partial Class FormMenuArticulos
         Me.lblNewArtTitulo.Size = New System.Drawing.Size(324, 42)
         Me.lblNewArtTitulo.TabIndex = 7
         Me.lblNewArtTitulo.Text = "AÑADIR ARTÍCULO"
-        '
-        'cmbNewArtCategoria
-        '
-        Me.cmbNewArtCategoria.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbNewArtCategoria.FormattingEnabled = True
-        Me.cmbNewArtCategoria.Location = New System.Drawing.Point(475, 226)
-        Me.cmbNewArtCategoria.Name = "cmbNewArtCategoria"
-        Me.cmbNewArtCategoria.Size = New System.Drawing.Size(201, 30)
-        Me.cmbNewArtCategoria.TabIndex = 23
         '
         'FormMenuArticulos
         '

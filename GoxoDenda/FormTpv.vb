@@ -10,14 +10,19 @@ Public Class FormTpv
     Dim precioLinea As Double
     Dim totalCompra As Double
     Dim idPedido As Integer
+    Dim idLinea As Integer
     Dim cantidadArticulo As Integer
     Dim i = 0
     Dim fecha As Date
-    Dim fechaActual As Date = Date.Now
+    Dim fechaActual As DateTime = DateTime.Now
+    Dim dr As DataRow
+    Dim value As Object
+
     Dim LineasDePedidoDt As DataTable
     Dim reader As OleDbDataReader
 
     Public Property Hoy As DateTime
+    Dim formatoFecha As String = "dd/MM/yyyy"
 
     Function buscarArticuloPorId(id As String)
         Dim query = "SELECT NOMBRE, PRECIO FROM ARTICULOS WHERE IDARTICULO = @id"
@@ -77,15 +82,28 @@ Public Class FormTpv
         Return tablaArticulos
     End Function
 
+    Private Function obtenerFecha()
+        fecha = Date.Now
+        Dim fechaDias As String
+        fechaDias = fecha.ToString(formatoFecha)
+        Return fechaDias
+    End Function
+
 
     Private Sub updatePedido()
 
-        Dim query = "UPDATE PEDIDOS SET PRECIOTOTAL = @precioTotal"
+        Dim fecha As String
+        fecha = obtenerFecha()
+
+        Dim query = "UPDATE PEDIDOS SET PrecioTotal = @precioTotal, FECHA = @fecha WHERE IDPEDIDO = @idPedido"
         Dim conn = DAO.Connection()
         conn.Open()
         Dim oleDbCommand = New OleDbCommand(query, conn)
         oleDbCommand.Parameters.AddWithValue("@precioTotal", totalCompra)
+        oleDbCommand.Parameters.AddWithValue("@idPedido", idPedido)
+        oleDbCommand.Parameters.AddWithValue("@fecha", fecha)
         Dim executeReader = oleDbCommand.ExecuteNonQuery()
+
         conn.Close()
 
     End Sub
@@ -185,14 +203,16 @@ Public Class FormTpv
     Private Sub pedidoVacio(idTrabajador As Integer)
         Dim query = "INSERT INTO PEDIDOS (IDTRABAJADOR, FECHA, PRECIOTOTAL) VALUES (@idTrabajador, @fecha,
                         @precioTotal)"
-        fecha = Date.Now
+        Dim fecha As String
+        fecha = obtenerFecha()
+
         Dim conn = DAO.Connection()
         conn.Open()
 
         Dim oledbCommand = New OleDbCommand(query, conn)
         With oledbCommand
             .Parameters.AddWithValue("@idTrabajador", idTrabajador)
-            .Parameters.AddWithValue("@fecha", fecha.ToString)
+            .Parameters.AddWithValue("@fecha", fecha)
             .Parameters.AddWithValue("@precioTotal", 0)
         End With
 
@@ -237,6 +257,35 @@ Public Class FormTpv
         conn.Close()
 
 
+    End Sub
+
+    Private Sub borrarLinea(idLinea As Integer)
+        Dim query = "DELETE FROM LINEASDEPEDIDO WHERE IDLINEASDEPEDIDO = @idLinea"
+        Dim conn = DAO.Connection
+        conn.Open()
+        Dim oleDbCommand = New OleDbCommand(query, conn)
+        oleDbCommand.Parameters.AddWithValue("@idLinea", idLinea)
+
+        oleDbCommand.ExecuteNonQuery()
+        conn.Close()
+
+    End Sub
+
+    Private Sub quitarDiferenciaLinea(idLinea As Integer)
+        Dim quitarPrecio As Double
+        Dim query = "SELECT PRECIO FROM LINEASDEPEDIDO WHERE IDLINEASDEPEDIDO = @idLinea"
+        Dim conn = DAO.Connection
+        Dim oleDbCommand = New OleDbCommand(query, conn)
+        conn.Open()
+        oleDbCommand.Parameters.AddWithValue("@idLinea", idLinea)
+        Dim tabla = New DataTable
+        Dim executeReader = oleDbCommand.ExecuteReader
+        If executeReader.HasRows Then
+            tabla.Load(executeReader)
+            quitarPrecio = tabla.Rows(0).Item(0)
+        End If
+
+        totalCompra = totalCompra - quitarPrecio
     End Sub
 
 #Region "====== BOTONES CANTIDAD ======"
@@ -331,11 +380,8 @@ Public Class FormTpv
         Dim oleDbCommand = New OleDbCommand(query, conn)
         conn.Open()
         oleDbCommand.Parameters.AddWithValue("@idPedido", idPedido)
-        reader = oleDbCommand.ExecuteReader
-        While reader.Read()
-            LineasDePedidoDt.Rows.Add(reader.Item("IDLINEASDEPEDIDO"), reader.Item("IDARTICULO"), reader.Item("IDPEDIDO"),
-              reader.Item("Cantidad"), reader.Item("Precio"))
-        End While
+        Dim reader = oleDbCommand.ExecuteReader
+        LineasDePedidoDt.Load(reader)
 
         DgvLineas.DataSource = LineasDePedidoDt
     End Sub
@@ -343,14 +389,6 @@ Public Class FormTpv
     Private Sub btnVisualizar_Click(sender As Object, e As EventArgs) Handles btnVisualizar.Click
         pnlPrincipal.Visible = False
         pnlTpvFactura.Visible = True
-
-        'With LineasDePedidoDt
-        '.Columns.Add("IDLINEA")
-        '.Columns.Add("IDARTICULO")
-        '.Columns.Add("IDPEDIDO")
-        '.Columns.Add("Cantidad")
-        '.Columns.Add("Precio")
-        'End With
 
         cargarLineasDePedido()
 
@@ -363,7 +401,15 @@ Public Class FormTpv
 
     Private Sub btnTpvFacFin_Click(sender As Object, e As EventArgs) Handles btnTpvFacFin.Click
         updatePedido()
+        updateVentasTrabajador(totalCompra)
+        MsgBox($"{totalCompra}")
         idPedido += 1
+        pnlPrincipal.Visible = True
+        pnlTpvFactura.Visible = False
+
+        pedidoVacio(ControladorUsuarios.idTrabajador)
+        totalCompra = 0.00
+        lblCuentaTotal.Text = "0,00€"
 
     End Sub
 
@@ -371,4 +417,30 @@ Public Class FormTpv
         Me.Visible = False
         FormMenu.Visible = True
     End Sub
+
+    Private Sub btnTpvFacEliminar_Click(sender As Object, e As EventArgs) Handles btnTpvFacEliminar.Click
+
+        Try
+            borrarLinea(idLinea)
+            cargarLineasDePedido()
+            quitarDiferenciaLinea(idLinea)
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+
+    End Sub
+
+    Private Sub dgvLineas_CellClick(sender As System.Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DgvLineas.CellClick
+
+        Dim i As Integer
+        i = DgvLineas.CurrentRow.Index
+        idLinea = DgvLineas.Item(0, i).Value
+        Label1.Text = idLinea.ToString
+
+    End Sub
+
+
+
 End Class

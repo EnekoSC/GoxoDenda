@@ -8,4 +8,9 @@
         Me.Visible = False
         FormTrabajadores.Visible = True
     End Sub
+
+    Private Sub btnMenuPedidos_Click(sender As Object, e As EventArgs) Handles btnMenuPedidos.Click
+        Me.Visible = False
+        FormPedidos.Visible = True
+    End Sub
 End Class

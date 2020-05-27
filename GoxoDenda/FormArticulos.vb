@@ -62,23 +62,28 @@ Public Class FormMenuArticulos
             (@idArticulo, @idCategoria, @idNombre, @idPrecio)"
 
         Dim conn = DAO.Connection()
-        conn.Open()
-        Dim oleDbCommand = New OleDbCommand(query, conn)
+        Try
+            conn.Open()
+            Dim oleDbCommand = New OleDbCommand(query, conn)
 
-        Dim idArticulo = txtNewArtId.Text
-        Dim idCategoria = cmbNewArtCategoria.SelectedItem.ToString
-        Dim idNombre = txtNewArtNombre.Text
-        Dim idPrecio = txtNewArtPrecio.Text
+            Dim idArticulo = txtNewArtId.Text.ToString
+            Dim idCategoria = cmbNewArtCategoria.SelectedValue
+            Dim idNombre = txtNewArtNombre.Text.ToString
+            Dim idPrecio = CDbl(txtNewArtPrecio.Text.ToString)
 
 
-        With oleDbCommand
-            .Parameters.AddWithValue("@idArticulo", idArticulo)
-            .Parameters.AddWithValue("@idCategoria", idCategoria)
-            .Parameters.AddWithValue("@idNombre", idNombre)
-            .Parameters.AddWithValue("@idPrecio", idPrecio)
-        End With
-        oleDbCommand.ExecuteNonQuery()
-        conn.Close()
+            With oleDbCommand
+                .Parameters.AddWithValue("@idArticulo", idArticulo)
+                .Parameters.AddWithValue("@idCategoria", idCategoria)
+                .Parameters.AddWithValue("@idNombre", idNombre)
+                .Parameters.AddWithValue("@idPrecio", idPrecio)
+            End With
+            oleDbCommand.ExecuteNonQuery()
+            conn.Close()
+        Catch ex As Exception
+            MsgBox($"{ex}")
+        End Try
+
 
 
     End Sub
@@ -112,6 +117,7 @@ Public Class FormMenuArticulos
         Dim executeReader = oledbCommand.ExecuteReader
 
         If executeReader.HasRows Then
+            MsgBox("tiene datos")
             tabla.Load(executeReader)
             idCategoria = tabla.Rows.Item(1).ToString
             nombre = tabla.Rows.Item(2).ToString
@@ -125,5 +131,10 @@ Public Class FormMenuArticulos
 
         'cmbModArt.DataSource = tabla
         'cmbModArt.DisplayMember = "NOMBRE"
+    End Sub
+
+    Private Sub btnArtMenuAtras_Click(sender As Object, e As EventArgs) Handles btnArtMenuAtras.Click
+        Me.Visible = False
+        FormTpv.Visible = True
     End Sub
 End Class

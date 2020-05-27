@@ -61,12 +61,20 @@ Partial Class FormTpv
         Me.DgvLineas = New System.Windows.Forms.DataGridView()
         Me.GoxoDendaDataSetBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GoxoDendaDataSet = New GoxoDenda.GoxoDendaDataSet()
+        Me.LINEASDEPEDIDOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.LINEASDEPEDIDOTableAdapter = New GoxoDenda.GoxoDendaDataSetTableAdapters.LINEASDEPEDIDOTableAdapter()
+        Me.GoxoDendaDataSetBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
+        Me.LINEASDEPEDIDOBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.pnlPrincipal.SuspendLayout()
         Me.pnlCantidad.SuspendLayout()
         Me.pnlTpvFactura.SuspendLayout()
         CType(Me.DgvLineas, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GoxoDendaDataSetBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GoxoDendaDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.LINEASDEPEDIDOBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GoxoDendaDataSetBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.LINEASDEPEDIDOBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pnlPrincipal
@@ -402,6 +410,7 @@ Partial Class FormTpv
         'pnlTpvFactura
         '
         Me.pnlTpvFactura.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.pnlTpvFactura.Controls.Add(Me.Label1)
         Me.pnlTpvFactura.Controls.Add(Me.lblTpvFacTitulo)
         Me.pnlTpvFactura.Controls.Add(Me.btnTpvFacAtras)
         Me.pnlTpvFactura.Controls.Add(Me.btnTpvFacEliminar)
@@ -448,7 +457,7 @@ Partial Class FormTpv
         '
         Me.btnTpvFacFin.BackColor = System.Drawing.Color.PaleGreen
         Me.btnTpvFacFin.Font = New System.Drawing.Font("Century Gothic", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnTpvFacFin.Location = New System.Drawing.Point(510, 310)
+        Me.btnTpvFacFin.Location = New System.Drawing.Point(485, 310)
         Me.btnTpvFacFin.Name = "btnTpvFacFin"
         Me.btnTpvFacFin.Size = New System.Drawing.Size(168, 64)
         Me.btnTpvFacFin.TabIndex = 2
@@ -457,12 +466,12 @@ Partial Class FormTpv
         '
         'DgvLineas
         '
-        Me.DgvLineas.AutoGenerateColumns = False
         Me.DgvLineas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvLineas.DataSource = Me.GoxoDendaDataSetBindingSource
-        Me.DgvLineas.Location = New System.Drawing.Point(85, 56)
+        Me.DgvLineas.Location = New System.Drawing.Point(124, 54)
+        Me.DgvLineas.MultiSelect = False
         Me.DgvLineas.Name = "DgvLineas"
-        Me.DgvLineas.Size = New System.Drawing.Size(652, 223)
+        Me.DgvLineas.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
+        Me.DgvLineas.Size = New System.Drawing.Size(565, 223)
         Me.DgvLineas.TabIndex = 0
         '
         'GoxoDendaDataSetBindingSource
@@ -474,6 +483,34 @@ Partial Class FormTpv
         '
         Me.GoxoDendaDataSet.DataSetName = "GoxoDendaDataSet"
         Me.GoxoDendaDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'LINEASDEPEDIDOBindingSource
+        '
+        Me.LINEASDEPEDIDOBindingSource.DataMember = "LINEASDEPEDIDO"
+        Me.LINEASDEPEDIDOBindingSource.DataSource = Me.GoxoDendaDataSetBindingSource
+        '
+        'LINEASDEPEDIDOTableAdapter
+        '
+        Me.LINEASDEPEDIDOTableAdapter.ClearBeforeFill = True
+        '
+        'GoxoDendaDataSetBindingSource1
+        '
+        Me.GoxoDendaDataSetBindingSource1.DataSource = Me.GoxoDendaDataSet
+        Me.GoxoDendaDataSetBindingSource1.Position = 0
+        '
+        'LINEASDEPEDIDOBindingSource1
+        '
+        Me.LINEASDEPEDIDOBindingSource1.DataMember = "LINEASDEPEDIDO"
+        Me.LINEASDEPEDIDOBindingSource1.DataSource = Me.GoxoDendaDataSetBindingSource1
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(385, 398)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(39, 13)
+        Me.Label1.TabIndex = 13
+        Me.Label1.Text = "Label1"
         '
         'FormTpv
         '
@@ -492,6 +529,9 @@ Partial Class FormTpv
         CType(Me.DgvLineas, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GoxoDendaDataSetBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GoxoDendaDataSet, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LINEASDEPEDIDOBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GoxoDendaDataSetBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LINEASDEPEDIDOBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -533,4 +573,9 @@ Partial Class FormTpv
     Friend WithEvents btnTpvFacAtras As Button
     Friend WithEvents btnTpvFacEliminar As Button
     Friend WithEvents btnTpvFacFin As Button
+    Friend WithEvents LINEASDEPEDIDOBindingSource As BindingSource
+    Friend WithEvents LINEASDEPEDIDOTableAdapter As GoxoDendaDataSetTableAdapters.LINEASDEPEDIDOTableAdapter
+    Friend WithEvents GoxoDendaDataSetBindingSource1 As BindingSource
+    Friend WithEvents LINEASDEPEDIDOBindingSource1 As BindingSource
+    Friend WithEvents Label1 As Label
 End Class

@@ -58,5 +58,40 @@ Module ControladorUsuarios
 
     End Sub
 
+    Function obtenerVentaTotalTrabajador()
+        Dim tabla = New DataTable
+        Dim ventaTotal As Double
+        Dim query = "SELECT VENTATOTAL FROM TRABAJADORES WHERE IDTRABAJADOR = @idTrabajador"
+        Dim conn = DAO.Connection
+        conn.Open()
+        Dim oleDbCommand = New OleDbCommand(query, conn)
+        oleDbCommand.Parameters.AddWithValue("idTrabajador", idTrabajador)
+        Dim executeReader = oleDbCommand.ExecuteReader
+
+        If executeReader.HasRows Then
+            tabla.Load(executeReader)
+            ventaTotal = tabla.Rows(0).Item(0)
+        End If
+        conn.Close()
+        Return ventaTotal
+    End Function
+
+    Sub updateVentasTrabajador(precioTotal As Double)
+        Dim totalVendido = obtenerVentaTotalTrabajador()
+        precioTotal = precioTotal + totalVendido
+        Dim query = "UPDATE TRABAJADORES SET VENTATOTAL = @precioTotal WHERE IDTRABAJADOR = @idTrabajador"
+        Dim conn = DAO.Connection
+        conn.Open()
+        Dim oleDbCommand = New OleDbCommand(query, conn)
+        With oleDbCommand
+            .Parameters.AddWithValue("precioTotal", precioTotal)
+            .Parameters.AddWithValue("idTrabajador", idTrabajador)
+        End With
+
+        oleDbCommand.ExecuteNonQuery()
+        conn.Close()
+
+    End Sub
+
 
 End Module
