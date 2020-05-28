@@ -22,6 +22,7 @@ Partial Class FormMenuArticulos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMenuArticulos))
         Me.pnlArtMenu = New System.Windows.Forms.Panel()
         Me.btnArtMenuAtras = New System.Windows.Forms.Button()
         Me.btnArtAnadir = New System.Windows.Forms.Button()
@@ -52,6 +53,9 @@ Partial Class FormMenuArticulos
         Me.lvlNewArtNombre = New System.Windows.Forms.Label()
         Me.btnNewArtAtras = New System.Windows.Forms.Button()
         Me.lblNewArtTitulo = New System.Windows.Forms.Label()
+        Me.lblEuro = New System.Windows.Forms.Label()
+        Me.cmbModArtCategoria = New System.Windows.Forms.ComboBox()
+        Me.lblNewEuro = New System.Windows.Forms.Label()
         Me.pnlArtMenu.SuspendLayout()
         Me.pnlModArticulos.SuspendLayout()
         Me.pnlNewArt.SuspendLayout()
@@ -115,6 +119,8 @@ Partial Class FormMenuArticulos
         '
         'pnlModArticulos
         '
+        Me.pnlModArticulos.Controls.Add(Me.cmbModArtCategoria)
+        Me.pnlModArticulos.Controls.Add(Me.lblEuro)
         Me.pnlModArticulos.Controls.Add(Me.btnModArtGuardar)
         Me.pnlModArticulos.Controls.Add(Me.txtModArtPrecio)
         Me.pnlModArticulos.Controls.Add(Me.txtModArtNombre)
@@ -150,6 +156,7 @@ Partial Class FormMenuArticulos
         Me.txtModArtPrecio.Name = "txtModArtPrecio"
         Me.txtModArtPrecio.Size = New System.Drawing.Size(69, 31)
         Me.txtModArtPrecio.TabIndex = 21
+        Me.txtModArtPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtModArtNombre
         '
@@ -171,6 +178,7 @@ Partial Class FormMenuArticulos
         '
         Me.txtModArtId.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtModArtId.Location = New System.Drawing.Point(188, 279)
+        Me.txtModArtId.MaxLength = 6
         Me.txtModArtId.Name = "txtModArtId"
         Me.txtModArtId.Size = New System.Drawing.Size(92, 31)
         Me.txtModArtId.TabIndex = 18
@@ -249,6 +257,7 @@ Partial Class FormMenuArticulos
         '
         'pnlNewArt
         '
+        Me.pnlNewArt.Controls.Add(Me.lblNewEuro)
         Me.pnlNewArt.Controls.Add(Me.cmbNewArtCategoria)
         Me.pnlNewArt.Controls.Add(Me.btnNewArtFin)
         Me.pnlNewArt.Controls.Add(Me.txtNewArtPrecio)
@@ -293,6 +302,7 @@ Partial Class FormMenuArticulos
         Me.txtNewArtPrecio.Name = "txtNewArtPrecio"
         Me.txtNewArtPrecio.Size = New System.Drawing.Size(69, 31)
         Me.txtNewArtPrecio.TabIndex = 21
+        Me.txtNewArtPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtNewArtNombre
         '
@@ -373,6 +383,35 @@ Partial Class FormMenuArticulos
         Me.lblNewArtTitulo.TabIndex = 7
         Me.lblNewArtTitulo.Text = "AÑADIR ARTÍCULO"
         '
+        'lblEuro
+        '
+        Me.lblEuro.AutoSize = True
+        Me.lblEuro.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblEuro.Location = New System.Drawing.Point(676, 282)
+        Me.lblEuro.Name = "lblEuro"
+        Me.lblEuro.Size = New System.Drawing.Size(21, 22)
+        Me.lblEuro.TabIndex = 23
+        Me.lblEuro.Text = "€"
+        '
+        'cmbModArtCategoria
+        '
+        Me.cmbModArtCategoria.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbModArtCategoria.FormattingEnabled = True
+        Me.cmbModArtCategoria.Location = New System.Drawing.Point(316, 341)
+        Me.cmbModArtCategoria.Name = "cmbModArtCategoria"
+        Me.cmbModArtCategoria.Size = New System.Drawing.Size(201, 30)
+        Me.cmbModArtCategoria.TabIndex = 24
+        '
+        'lblNewEuro
+        '
+        Me.lblNewEuro.AutoSize = True
+        Me.lblNewEuro.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNewEuro.Location = New System.Drawing.Point(477, 284)
+        Me.lblNewEuro.Name = "lblNewEuro"
+        Me.lblNewEuro.Size = New System.Drawing.Size(21, 22)
+        Me.lblNewEuro.TabIndex = 24
+        Me.lblNewEuro.Text = "€"
+        '
         'FormMenuArticulos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -382,6 +421,7 @@ Partial Class FormMenuArticulos
         Me.Controls.Add(Me.pnlArtMenu)
         Me.Controls.Add(Me.pnlNewArt)
         Me.Controls.Add(Me.pnlModArticulos)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormMenuArticulos"
         Me.Text = "Goxo Denda App"
         Me.pnlArtMenu.ResumeLayout(False)
@@ -424,4 +464,7 @@ Partial Class FormMenuArticulos
     Friend WithEvents lvlNewArtNombre As Label
     Friend WithEvents btnNewArtAtras As Button
     Friend WithEvents lblNewArtTitulo As Label
+    Friend WithEvents lblEuro As Label
+    Friend WithEvents cmbModArtCategoria As ComboBox
+    Friend WithEvents lblNewEuro As Label
 End Class

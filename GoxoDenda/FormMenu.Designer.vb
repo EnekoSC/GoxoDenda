@@ -22,6 +22,7 @@ Partial Class FormMenu
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMenu))
         Me.lblLogin = New System.Windows.Forms.Label()
         Me.btnMenuTrabajadores = New System.Windows.Forms.Button()
         Me.btnMenuArticulos = New System.Windows.Forms.Button()
@@ -42,6 +43,7 @@ Partial Class FormMenu
         '
         'btnMenuTrabajadores
         '
+        Me.btnMenuTrabajadores.Enabled = False
         Me.btnMenuTrabajadores.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnMenuTrabajadores.Location = New System.Drawing.Point(175, 142)
         Me.btnMenuTrabajadores.Name = "btnMenuTrabajadores"
@@ -72,6 +74,7 @@ Partial Class FormMenu
         '
         'btnMenuProveedores
         '
+        Me.btnMenuProveedores.Enabled = False
         Me.btnMenuProveedores.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnMenuProveedores.Location = New System.Drawing.Point(434, 277)
         Me.btnMenuProveedores.Name = "btnMenuProveedores"
@@ -91,6 +94,7 @@ Partial Class FormMenu
         Me.Controls.Add(Me.btnMenuArticulos)
         Me.Controls.Add(Me.btnMenuTrabajadores)
         Me.Controls.Add(Me.lblLogin)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormMenu"
         Me.Text = "GoxoDenda App"
         Me.ResumeLayout(False)

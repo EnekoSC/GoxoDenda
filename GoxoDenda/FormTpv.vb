@@ -1,4 +1,6 @@
 ﻿Imports System.Data.OleDb
+Imports System.IO
+Imports System.Text
 Imports GoxoDenda.DAO
 
 Public Class FormTpv
@@ -17,6 +19,7 @@ Public Class FormTpv
     Dim fechaActual As DateTime = DateTime.Now
     Dim dr As DataRow
     Dim value As Object
+    Dim primero As Boolean = True
 
     Dim LineasDePedidoDt As DataTable
     Dim reader As OleDbDataReader
@@ -92,17 +95,17 @@ Public Class FormTpv
 
     Private Sub updatePedido()
 
-        Dim fecha As String
-        fecha = obtenerFecha()
+        Dim precioTotal As Double
+        precioTotal = FormPedidos.sumaLineas(idPedido)
 
-        Dim query = "UPDATE PEDIDOS SET PrecioTotal = @precioTotal, FECHA = @fecha WHERE IDPEDIDO = @idPedido"
+        Dim query = "UPDATE PEDIDOS SET PrecioTotal = @precioTotal WHERE IDPEDIDO = @idPedido"
         Dim conn = DAO.Connection()
         conn.Open()
         Dim oleDbCommand = New OleDbCommand(query, conn)
-        oleDbCommand.Parameters.AddWithValue("@precioTotal", totalCompra)
+        oleDbCommand.Parameters.AddWithValue("@precioTotal", precioTotal)
         oleDbCommand.Parameters.AddWithValue("@idPedido", idPedido)
-        oleDbCommand.Parameters.AddWithValue("@fecha", fecha)
-        Dim executeReader = oleDbCommand.ExecuteNonQuery()
+        oleDbCommand.ExecuteNonQuery()
+
 
         conn.Close()
 
@@ -111,7 +114,7 @@ Public Class FormTpv
     Function CreateButton(nombre As String, id As String) As Button
         Dim myCtrl As New Button
         With myCtrl
-            .Size = New Size(75, 75)
+            .Size = New Size(85, 85)
             .Text = nombre
             .TextAlign = ContentAlignment.MiddleCenter
             .Font = lblTamano.Font
@@ -152,7 +155,7 @@ Public Class FormTpv
 
     Private Sub btnBolleria_Click(sender As Object, e As EventArgs) Handles btnBolleria.Click
         'articulos.Clear()
-        pnlTPV.Controls.Clear()
+        pnlTpv.Controls.Clear()
         articulos = buscarArticulosPorCategoria("BOL")
         Console.WriteLine(articulos.Rows.Count)
         For Each row As DataRow In articulos.Rows
@@ -284,7 +287,7 @@ Public Class FormTpv
             tabla.Load(executeReader)
             quitarPrecio = tabla.Rows(0).Item(0)
         End If
-
+        conn.Close()
         totalCompra = totalCompra - quitarPrecio
     End Sub
 
@@ -360,19 +363,25 @@ Public Class FormTpv
         If idArticulo = "" Then
             MsgBox("Debes seleccionar un artículo antes de meter la cantidad.")
         Else
-
+            If primero = True Then
+                pedidoVacio(ControladorUsuarios.idTrabajador)
+                primero = False
+            End If
             'pedidoVacio(ControladorUsuarios.idTrabajador)
             buscarIdPedido()
             insertarLinea(idArticulo, idPedido, cantidadArticulo, (precioArticulo * cantidadArticulo))
-            totalCompra = totalCompra + (precioArticulo * cantidadArticulo)
+            totalCompra = FormPedidos.sumaLineas(idPedido)
             lblCuentaTotal.Text = $"{totalCompra}" + "€"
             cantidadArticulo = 0
             idArticulo = ""
+
+
         End If
 
     End Sub
 
     Private Sub cargarLineasDePedido()
+        'Cargar lineas de pedido actual en el datagridview
         LineasDePedidoDt = New DataTable
         LineasDePedidoDt.Clear()
         Dim query = "SELECT * FROM LINEASDEPEDIDO WHERE IDPEDIDO = @idPedido"
@@ -384,6 +393,9 @@ Public Class FormTpv
         LineasDePedidoDt.Load(reader)
 
         DgvLineas.DataSource = LineasDePedidoDt
+
+        conn.Close()
+
     End Sub
 
     Private Sub btnVisualizar_Click(sender As Object, e As EventArgs) Handles btnVisualizar.Click
@@ -397,20 +409,36 @@ Public Class FormTpv
     Private Sub btnTpvFacAtras_Click(sender As Object, e As EventArgs) Handles btnTpvFacAtras.Click
         pnlTpvFactura.Visible = False
         pnlPrincipal.Visible = True
+        lblCuentaTotal.Text = $"{totalCompra}" + "€"
     End Sub
 
     Private Sub btnTpvFacFin_Click(sender As Object, e As EventArgs) Handles btnTpvFacFin.Click
         updatePedido()
         updateVentasTrabajador(totalCompra)
-        MsgBox($"{totalCompra}")
+        imprimirPedido(idPedido)
         idPedido += 1
         pnlPrincipal.Visible = True
         pnlTpvFactura.Visible = False
 
-        pedidoVacio(ControladorUsuarios.idTrabajador)
+
+
         totalCompra = 0.00
         lblCuentaTotal.Text = "0,00€"
+        primero = True
 
+    End Sub
+
+    Private Sub imprimirPedido(idPedido As Integer)
+
+        Dim titulo = " ===  GOXO DENDA === " + vbCrLf + vbCrLf + "Helbidea: Puntal auzoa, 1" + vbCrLf + "Telefonoa: 943010101" + vbCrLf + "Langilearen 
+                izena: "
+        Dim ruta = "C:\Users\Eneko\Desktop\pedidos\pedido" + $"{idPedido}" + ".txt"
+
+        Dim fs As FileStream = File.Create(ruta)
+
+        Dim info As Byte() = New UTF8Encoding(True).GetBytes(titulo)
+        fs.Write(info, 0, info.Length)
+        fs.Close()
     End Sub
 
     Private Sub btnPrincipalMenu_Click(sender As Object, e As EventArgs) Handles btnPrincipalMenu.Click
@@ -440,7 +468,5 @@ Public Class FormTpv
         Label1.Text = idLinea.ToString
 
     End Sub
-
-
 
 End Class

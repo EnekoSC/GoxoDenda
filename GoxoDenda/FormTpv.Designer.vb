@@ -54,6 +54,7 @@ Partial Class FormTpv
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.lblTitulo = New System.Windows.Forms.Label()
         Me.pnlTpvFactura = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.lblTpvFacTitulo = New System.Windows.Forms.Label()
         Me.btnTpvFacAtras = New System.Windows.Forms.Button()
         Me.btnTpvFacEliminar = New System.Windows.Forms.Button()
@@ -65,7 +66,6 @@ Partial Class FormTpv
         Me.LINEASDEPEDIDOTableAdapter = New GoxoDenda.GoxoDendaDataSetTableAdapters.LINEASDEPEDIDOTableAdapter()
         Me.GoxoDendaDataSetBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         Me.LINEASDEPEDIDOBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.pnlPrincipal.SuspendLayout()
         Me.pnlCantidad.SuspendLayout()
         Me.pnlTpvFactura.SuspendLayout()
@@ -272,10 +272,10 @@ Partial Class FormTpv
         'lblTamano
         '
         Me.lblTamano.AutoSize = True
-        Me.lblTamano.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTamano.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTamano.Location = New System.Drawing.Point(9, 371)
         Me.lblTamano.Name = "lblTamano"
-        Me.lblTamano.Size = New System.Drawing.Size(0, 17)
+        Me.lblTamano.Size = New System.Drawing.Size(0, 20)
         Me.lblTamano.TabIndex = 13
         Me.lblTamano.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
@@ -298,7 +298,7 @@ Partial Class FormTpv
         Me.btnVisualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnVisualizar.ForeColor = System.Drawing.Color.Transparent
         Me.btnVisualizar.Image = CType(resources.GetObject("btnVisualizar.Image"), System.Drawing.Image)
-        Me.btnVisualizar.Location = New System.Drawing.Point(510, 399)
+        Me.btnVisualizar.Location = New System.Drawing.Point(325, 381)
         Me.btnVisualizar.Name = "btnVisualizar"
         Me.btnVisualizar.Size = New System.Drawing.Size(54, 46)
         Me.btnVisualizar.TabIndex = 11
@@ -421,6 +421,15 @@ Partial Class FormTpv
         Me.pnlTpvFactura.Size = New System.Drawing.Size(824, 454)
         Me.pnlTpvFactura.TabIndex = 17
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(385, 398)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(39, 13)
+        Me.Label1.TabIndex = 13
+        Me.Label1.Text = "Label1"
+        '
         'lblTpvFacTitulo
         '
         Me.lblTpvFacTitulo.AutoSize = True
@@ -503,15 +512,6 @@ Partial Class FormTpv
         Me.LINEASDEPEDIDOBindingSource1.DataMember = "LINEASDEPEDIDO"
         Me.LINEASDEPEDIDOBindingSource1.DataSource = Me.GoxoDendaDataSetBindingSource1
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(385, 398)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(39, 13)
-        Me.Label1.TabIndex = 13
-        Me.Label1.Text = "Label1"
-        '
         'FormTpv
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -519,6 +519,7 @@ Partial Class FormTpv
         Me.ClientSize = New System.Drawing.Size(824, 451)
         Me.Controls.Add(Me.pnlPrincipal)
         Me.Controls.Add(Me.pnlTpvFactura)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormTpv"
         Me.Text = "Goxo Denda App"
         Me.pnlPrincipal.ResumeLayout(False)
