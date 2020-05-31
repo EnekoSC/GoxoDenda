@@ -409,7 +409,10 @@ Public Class FormTpv
     Private Sub btnTpvFacAtras_Click(sender As Object, e As EventArgs) Handles btnTpvFacAtras.Click
         pnlTpvFactura.Visible = False
         pnlPrincipal.Visible = True
+        updatePedido()
         lblCuentaTotal.Text = $"{totalCompra}" + "€"
+
+
     End Sub
 
     Private Sub btnTpvFacFin_Click(sender As Object, e As EventArgs) Handles btnTpvFacFin.Click
